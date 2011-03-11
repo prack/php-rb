@@ -1,0 +1,40 @@
+<?php
+
+class Prb_Numeric
+  implements Prb_Interface_Comparable
+{
+	protected $numeric;
+	
+	// TODO: Document!
+	static function with( $numeric )
+	{
+		return new Prb_Numeric( $numeric );
+	}
+	
+	// TODO: Document!
+	public function __construct( $numeric )
+	{
+		if ( !is_numeric( $numeric ) )
+			throw new Prb_Exception_Type( 'FAILSAFE: __construct $numeric is not numeric' );
+		
+		$this->numeric = $numeric;
+	}
+	
+	// TODO: Document!
+	public function toN()
+	{
+		return $this->numeric;
+	}
+	
+	// TODO: Document!
+	public function toS()
+	{
+		return Prb::_String( (string)$this->numeric );
+	}
+	
+	// TODO: Document!
+	public function compare( $other_num )
+	{
+		return ( $this->numeric - $other_num->toN() );
+	}
+}

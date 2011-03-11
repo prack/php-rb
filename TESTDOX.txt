@@ -1,0 +1,63 @@
+PHPUnit 3.5.11 by Sebastian Bergmann.
+
+Prb_Array
+ [x] It should handle each
+ [x] It should handle set
+ [x] It should handle get
+ [x] It should return null on get with a negative index that is out of bounds
+ [x] It should throw an exception on set with a negative index that is out of bounds
+ [x] It should handle push
+ [x] It should handle pop
+ [x] It should handle unshift
+ [x] It should handle shift
+ [x] It should output useful information on inspect
+ [x] It should know if it s empty
+ [x] It should handle slice
+ [x] It should handle compact
+ [x] It should handle inject
+ [x] It should return null for compare when incomparable
+ [x] It should handle eachIndex
+
+Prb_Hash
+ [x] It should handle each
+ [x] It should handle set
+ [x] It should handle get
+ [x] It should know if it s empty
+ [x] It should handle slice
+ [x] It should handle inject
+
+Prb_IO_File
+ [x] It should indicate writability correctly
+ [x] It should throw an exception when file at specified path is inaccessible
+ [x] It should know if it was opened in binary mode
+
+Prb_IO_String
+ [x] It should throw an exception if the string is too big
+ [x] It should be creatable without a string
+
+Prb_IO
+ [x] It should be able to handle read
+ [x] It should be able to handle read with null
+ [x] It should be able to handle read with length
+ [x] It should be able to handle read with length and buffer
+ [x] It should be able to handle read with null and buffer
+ [x] It should rewind to the beginning when rewind is called
+ [x] It should be able to handle gets
+ [x] It should be able to handle each
+ [x] It should throw an exception on each if callback is not callable
+ [x] It should handle read on really big strings
+ [x] It should handle write
+ [x] It should be possible to call close immediately
+ [x] It should be possible to call close multiple times
+
+Prb_Set
+ [x] It should handle each
+
+Prb_String
+ [x] It should upcase properly
+ [x] It should downcase properly
+
+
+Writing code coverage data to XML file, this may take a moment.
+
+Generating code coverage report, this may take a moment.
