@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit bootstrap="phpunit.bootstrap.php"
+         backupGlobals="false"
+         backupStaticAttributes="false"
+         syntaxCheck="false">
+  <testsuites>
+    <testsuite name="php-rb">
+      <directory suffix="test.php">test/unit</directory>
+    </testsuite>
+  </testsuites>
+
+  <php>
+  </php>
+
+  <logging>
+    <log type="coverage-html" target="coverage" title="Prb"
+         charset="UTF-8" yui="true" highlight="true"
+         lowUpperBound="35" highLowerBound="70"/>
+    <log type="coverage-clover" target="build/logs/clover.xml"/>
+    <log type="junit" target="build/logs/junit.xml" logIncompleteSkipped="false"/>
+  </logging>
+
+  <filter>
+    <whitelist addUncoveredFilesFromWhitelist="true">
+      <directory suffix=".php">prb</directory>
+       <exclude>
+       </exclude>
+    </whitelist>
+  </filter>
+</phpunit>
