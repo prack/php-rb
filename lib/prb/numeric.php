@@ -33,6 +33,12 @@ class Prb_Numeric
 	}
 	
 	// TODO: Document!
+	public function truth( $value = '' )
+	{
+		return (bool)$this->numeric;
+	}
+	
+	// TODO: Document!
 	public function compare( $other_num )
 	{
 		return ( $this->numeric - $other_num->toN() );
