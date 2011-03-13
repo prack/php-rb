@@ -199,7 +199,7 @@ class Prb_String
 		
 		static $callback = null;
 		if ( is_null( $callback ) )
-			$callback = create_function( '$i', 'return $i->toS()->toN();' );
+			$callback = create_function( '$i', 'return is_null( $i ) ? \'\' : $i->toS()->toN();' );
 		
 		$args = $args->collect( $callback )->toN();
 		array_unshift( $args, $this->string );
