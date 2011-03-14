@@ -28,7 +28,7 @@ class Prb_String
 	}
 	
 	// TODO: Document!
-	public function toN()
+	public function raw()
 	{
 		return $this->string;
 	}
@@ -56,7 +56,7 @@ class Prb_String
 	// TODO: Document!
 	public function contains( $substring )
 	{
-		return ( strpos( $this->string, $substring->toN() ) !== false );
+		return ( strpos( $this->string, $substring->raw() ) !== false );
 	}
 	
 	// TODO: Document!
@@ -96,7 +96,7 @@ class Prb_String
 	// TODO: Document!
 	public function chomp( $separator = null )
 	{
-		$separator = is_null( $separator ) ? null : $separator->toN();
+		$separator = is_null( $separator ) ? null : $separator->raw();
 		return Prb::_String( rtrim( $this->string, $separator ) );
 	}
 	
@@ -139,7 +139,7 @@ class Prb_String
 		if ( $t_length < $f_length )
 			$to = $to->rjust( $f_length, $to->slice( -1 ) );
 		
-		return Prb::_String( strtr( $this->string, $from->toN(), $to->toN() ) );
+		return Prb::_String( strtr( $this->string, $from->raw(), $to->raw() ) );
 	}
 	
 	// TODO: Document!
@@ -148,7 +148,7 @@ class Prb_String
 		if ( is_null( $pad_str ) )
 			$pad_str = Prb::_String( ' ' );
 		
-		return Prb::_String( str_pad( $this->string, $integer, $pad_str->toN() ) );
+		return Prb::_String( str_pad( $this->string, $integer, $pad_str->raw() ) );
 	}
 	
 	// TODO: Document!
@@ -159,7 +159,7 @@ class Prb_String
 		if ( is_callable( $replacement ) )
 			$result = preg_replace_callback( $pattern, $replacement, $this->string );
 		else if ( $replacement instanceof Prb_String )
-			$result = preg_replace( $pattern, $replacement->toN(), $this->string );
+			$result = preg_replace( $pattern, $replacement->raw(), $this->string );
 		
 		return Prb::_String( $result );
 	}
@@ -173,7 +173,7 @@ class Prb_String
 	// TODO: Document!
 	public function concat( $other )
 	{
-		$this->string .= $other->toN();
+		$this->string .= $other->raw();
 		return $this;
 	}
 	
@@ -199,9 +199,9 @@ class Prb_String
 		
 		static $callback = null;
 		if ( is_null( $callback ) )
-			$callback = create_function( '$i', 'return is_null( $i ) ? \'\' : $i->toS()->toN();' );
+			$callback = create_function( '$i', 'return is_null( $i ) ? \'\' : $i->toS()->raw();' );
 		
-		$args = $args->collect( $callback )->toN();
+		$args = $args->collect( $callback )->raw();
 		array_unshift( $args, $this->string );
 		
 		$result = @call_user_func_array( 'sprintf', $args );
@@ -262,6 +262,6 @@ class Prb_String
 			return null;
 		
 		$other_str = $other_str->toS();
-		return strcmp( $this->toN(), $other_str->toN() );
+		return strcmp( $this->raw(), $other_str->raw() );
 	}
 }

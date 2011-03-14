@@ -69,7 +69,7 @@ class Prb_DelegateFor_Collection
 	// TODO: Document!
 	static function keys( $wrapper )
 	{
-		$keys = array_keys( $wrapper->toN() );
+		$keys = array_keys( $wrapper->raw() );
 		
 		$wrapped = Prb::_Array();
 		foreach ( $keys as $key )

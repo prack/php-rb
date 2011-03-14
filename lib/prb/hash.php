@@ -57,7 +57,7 @@ class Prb_Hash extends Prb_Abstract_Collection
 	// TODO: Document!
 	public function mergeInPlace( $other )
 	{
-		foreach ( $other->toN() as $key => $value )
+		foreach ( $other->raw() as $key => $value )
 			$this->set( $key, $value );
 		return $this;
 	}
@@ -87,7 +87,7 @@ class Prb_Hash extends Prb_Abstract_Collection
 		{
 			if ( $value instanceof Prb_Array )
 			{
-				$args = $value->toN();
+				$args = $value->raw();
 				array_unshift( $args, $result );
 				$result = call_user_func_array( $callback, $args );
 			}

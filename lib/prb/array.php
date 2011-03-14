@@ -71,7 +71,7 @@ class Prb_Array extends Prb_Abstract_Collection
 		foreach ( $this->array as $item )
 		{
 			if ( $item instanceof Prb_Array )
-				call_user_func_array( $callback, $item->toN() );
+				call_user_func_array( $callback, $item->raw() );
 			else
 				call_user_func( $callback, $item );
 		}
@@ -99,7 +99,7 @@ class Prb_Array extends Prb_Abstract_Collection
 		{
 			if ( $item instanceof Prb_Array )
 			{
-				$args = $item->toN();
+				$args = $item->raw();
 				array_unshift( $args, $result );
 				$result = call_user_func_array( $callback, $args );
 			}
@@ -127,7 +127,7 @@ class Prb_Array extends Prb_Abstract_Collection
 		foreach ( $this->array as $item )
 		{
 			if ( $item instanceof Prb_Array )
-				array_push( $map, call_user_func_array( $callback, $item->toN() ) );
+				array_push( $map, call_user_func_array( $callback, $item->raw() ) );
 			else
 				array_push( $map, call_user_func( $callback, $item ) );
 		}
@@ -191,7 +191,7 @@ class Prb_Array extends Prb_Abstract_Collection
 	public function compact()
 	{
 		$compacted = Prb::_Array();
-		foreach ( $this->toN() as $item )
+		foreach ( $this->raw() as $item )
 			if ( isset( $item ) )
 				$compacted->push( $item );
 		
@@ -230,9 +230,9 @@ class Prb_Array extends Prb_Abstract_Collection
 		
 		$as_strings = Prb::_Array();
 		foreach ( $this->array as $item )
-			$as_strings->push( $item->toN() );
+			$as_strings->push( $item->raw() );
 		
-		return Prb::_String( implode( $separator->toN(), $as_strings->toN() ) );
+		return Prb::_String( implode( $separator->raw(), $as_strings->raw() ) );
 	}
 	
 	// TODO: Document!
@@ -291,7 +291,7 @@ class Prb_Array extends Prb_Abstract_Collection
 		if ( $other_ary->length() > $this_ary->length() )
 			$this_ary->set( $other_ary->length() - 1, null );
 		
-		foreach( $this_ary->toN() as $index => $item )
+		foreach( $this_ary->raw() as $index => $item )
 		{
 			$other_item = $other_ary->get( $index );
 			

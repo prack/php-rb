@@ -21,7 +21,7 @@ class Prb_Numeric
 	}
 	
 	// TODO: Document!
-	public function toN()
+	public function raw()
 	{
 		return $this->numeric;
 	}
@@ -41,6 +41,6 @@ class Prb_Numeric
 	// TODO: Document!
 	public function compare( $other_num )
 	{
-		return ( $this->numeric - $other_num->toN() );
+		return ( $this->numeric - $other_num->raw() );
 	}
 }

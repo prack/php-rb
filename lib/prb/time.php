@@ -25,7 +25,7 @@ class Prb_Time extends Prb_Numeric
 		if ( !( $format instanceof Prb_String ) )
 			throw new Prb_Exception_Argument( 'strftime $format must be instance of Prb_String' );
 		
-		$formatted = strftime( $format->toN(), (int)$this->numeric );
+		$formatted = strftime( $format->raw(), (int)$this->numeric );
 		return is_string( $formatted ) ? Prb::_String( $formatted ) : Prb::_String();
 	}
 	

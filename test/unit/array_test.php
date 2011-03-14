@@ -44,11 +44,11 @@ class Prb_ArrayTest extends PHPUnit_Framework_TestCase
 	{
 		$wrapper = Prb::_Array( array( 'foo', 'bar' ) );
 		$wrapper->set( 1, 'cow' );
-		$this->assertEquals( array( 'foo', 'cow' ), $wrapper->toN() );
+		$this->assertEquals( array( 'foo', 'cow' ), $wrapper->raw() );
 		
 		$wrapper = Prb::_Array( array( 'foo', 'bar' ) );
 		$wrapper->set( 4, 'baz' );
-		$this->assertEquals( array( 'foo', 'bar', null, null, 'baz' ), $wrapper->toN() );
+		$this->assertEquals( array( 'foo', 'bar', null, null, 'baz' ), $wrapper->raw() );
 	} // It should handle set
 	
 	
@@ -107,7 +107,7 @@ class Prb_ArrayTest extends PHPUnit_Framework_TestCase
 	{
 		$wrapper = Prb::_Array( array( 'foo', 'bar' ) );
 		$wrapper->push( 'baz' );
-		$this->assertEquals( array( 'foo', 'bar', 'baz' ), $wrapper->toN() );
+		$this->assertEquals( array( 'foo', 'bar', 'baz' ), $wrapper->raw() );
 		$this->assertTrue( $wrapper->length() == 3 );
 	} // It should handle push
 	
@@ -121,7 +121,7 @@ class Prb_ArrayTest extends PHPUnit_Framework_TestCase
 		$wrapper = Prb::_Array( array( 'foo', 'bar', 'baz' ) );
 		$result  = $wrapper->pop();
 		$this->assertEquals( 'baz', $result );
-		$this->assertEquals( array( 'foo', 'bar' ), $wrapper->toN() );
+		$this->assertEquals( array( 'foo', 'bar' ), $wrapper->raw() );
 		$this->assertTrue( $wrapper->size() == 2 );
 	} // It should handle pop
 	
@@ -134,7 +134,7 @@ class Prb_ArrayTest extends PHPUnit_Framework_TestCase
 	{
 		$wrapper = Prb::_Array( array( 'bar', 'baz' ) );
 		$wrapper->unshift( 'foo' );
-		$this->assertEquals( array( 'foo', 'bar', 'baz' ), $wrapper->toN() );
+		$this->assertEquals( array( 'foo', 'bar', 'baz' ), $wrapper->raw() );
 		$this->assertTrue( $wrapper->count() == 3 );
 	} // It should handle unshift
 	
@@ -148,7 +148,7 @@ class Prb_ArrayTest extends PHPUnit_Framework_TestCase
 		$wrapper = Prb::_Array( array( 'foo', 'bar', 'baz' ) );
 		$result  = $wrapper->shift();
 		$this->assertEquals( 'foo', $result );
-		$this->assertEquals( array( 'bar', 'baz' ), $wrapper->toN() );
+		$this->assertEquals( array( 'bar', 'baz' ), $wrapper->raw() );
 	} // It should handle shift
 	
 	/**

@@ -45,7 +45,7 @@ class Prb_HashTest extends PHPUnit_Framework_TestCase
 		$wrapper = Prb::_Hash( array( 'foo' => 'bar', 'baz' => 'bat' ) );
 		$wrapper->set( 'foo', 'cow' );
 		$wrapper->set( 'bar', 'bar' );
-		$this->assertEquals( array( 'foo' => 'cow', 'baz' => 'bat', 'bar' => 'bar' ), $wrapper->toN() );
+		$this->assertEquals( array( 'foo' => 'cow', 'baz' => 'bat', 'bar' => 'bar' ), $wrapper->raw() );
 	} // It should handle set
 	
 	/**

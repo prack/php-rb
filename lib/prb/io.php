@@ -130,7 +130,7 @@ class Prb_IO
 	public function write( $buffer )
 	{
 		if ( $this->isWritable() )
-			return fwrite( $this->stream, $buffer->toN() );
+			return fwrite( $this->stream, $buffer->raw() );
 		
 		throw new Prb_Exception_IO( 'stream is not writable' );
 	}

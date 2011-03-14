@@ -61,7 +61,7 @@ Beating up an Array
 	    }
 	  }
 	}
-	php > $callback = create_function( '$item', 'echo $item->toN();' );
+	php > $callback = create_function( '$item', 'echo $item->raw();' );
 	php > $array->each( $callback );
 	foobar
 

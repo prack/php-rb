@@ -38,7 +38,7 @@ class Prb_IO_StringTest extends PHPUnit_Framework_TestCase
 		
 		ob_start();
 			for ( $i = 0; $i < $iterations; $i++ )
-				echo $gibberish->toN();
+				echo $gibberish->raw();
 		$bigass_string = Prb::_String( ob_get_contents() );
 		
 		ob_end_clean();
@@ -55,6 +55,6 @@ class Prb_IO_StringTest extends PHPUnit_Framework_TestCase
 	public function It_should_be_creatable_without_a_string()
 	{
 		$this->string_io = Prb_IO::withString();
-		$this->assertEquals( '', $this->string_io->read()->toN() );
+		$this->assertEquals( '', $this->string_io->read()->raw() );
 	} // It should be creatable without a string
 }

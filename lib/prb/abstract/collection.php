@@ -47,11 +47,11 @@ abstract class Prb_Abstract_Collection
 		$keys    = array_keys( $this->array );
 		$links   = array();
 		
-		foreach ( $proxies->toN() as $index => $proxy )
+		foreach ( $proxies->raw() as $index => $proxy )
 			$links[ spl_object_hash( $proxy ) ] = $keys[ $index ];
 		
 		$sorted = array();
-		foreach ( $proxies->sort()->toN() as $proxy )
+		foreach ( $proxies->sort()->raw() as $proxy )
 		{
 			$key            = $links[ spl_object_hash( $proxy ) ];
 			$sorted[ $key ] = $this->array[ $key ];
@@ -70,7 +70,7 @@ abstract class Prb_Abstract_Collection
 	}
 	
 	// TODO: Document!
-	public function toN()
+	public function raw()
 	{
 		return $this->array;
 	}

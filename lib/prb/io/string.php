@@ -21,7 +21,7 @@ class Prb_IO_String extends Prb_IO
 		$this->string = $string;
 		$stream = fopen( 'php://memory', 'w+b' );
 		
-		fputs( $stream, $string->toN() );
+		fputs( $stream, $string->raw() );
 		rewind( $stream );
 		
 		parent::__construct( $stream, true );

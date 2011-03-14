@@ -22,7 +22,7 @@ class Prb_NumericTest extends PHPUnit_Framework_TestCase
 	public function It_should_provide_access_to_its_primitive()
 	{
 		$numeric = Prb_Numeric::with( 13 );
-		$this->assertEquals( 13, $numeric->toN() );
+		$this->assertEquals( 13, $numeric->raw() );
 	} // It should provide access to its primitive
 	
 	/**
