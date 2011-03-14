@@ -2,6 +2,7 @@
 
 // TODO: Document!
 class Prb_Logger
+  implements Prb_Interface_Logger
 {
 	const DEBUG   = 0;
 	const INFO    = 1;
@@ -105,6 +106,13 @@ class Prb_Logger
 	{
 		if ( !( is_null( $this->device ) ) )
 			$this->device->write( $message );
+	}
+	
+	// TODO: Document!
+	public function close()
+	{
+		if ( isset( $this->device ) )
+			$this->device->close();
 	}
 	
 	// TODO: Document!

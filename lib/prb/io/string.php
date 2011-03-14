@@ -19,8 +19,6 @@ class Prb_IO_String extends Prb_IO
 			throw new Prb_Exception_Argument( 'FAILSAFE: __construct $string too big for string io' );
 		
 		$this->string = $string;
-		$this->length = $string->length();
-		
 		$stream = fopen( 'php://memory', 'w+b' );
 		
 		fputs( $stream, $string->toN() );
@@ -45,8 +43,9 @@ class Prb_IO_String extends Prb_IO
 	// TODO: Document!
 	public function write( $buffer )
 	{
-		$this->length += $buffer->length();
-		return parent::write( $buffer );
+		$result = parent::write( $buffer );
+		$this->updateString();
+		return $result;
 	}
 	
 	// TODO: Document!
@@ -58,14 +57,28 @@ class Prb_IO_String extends Prb_IO
 	// TODO: Document!
 	public function string()
 	{
-		$stream = parent::getStream(); // from parent.
+		return clone $this->string;
+	}
+	
+	// TODO: Document!
+	public function close()
+	{
+		$this->updateString(); // update string one last time.
+		return parent::close();
+	}
+	
+	// TODO: Document!
+	public function updateString()
+	{
+		if ( !$this->isReadable() )
+			return;
+		
+		$stream = $this->getStream(); // from parent.
 		$curpos = ftell( $stream );
 		
 		parent::rewind();
 		$this->string = $this->read();
 		
 		fseek( $stream, $curpos );
-		
-		return $this->string;
 	}
 }
