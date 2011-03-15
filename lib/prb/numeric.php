@@ -27,6 +27,12 @@ class Prb_Numeric
 	}
 	
 	// TODO: Document!
+	public function toN()
+	{
+		return clone $this;
+	}
+	
+	// TODO: Document!
 	public function toS()
 	{
 		return Prb::_String( (string)$this->numeric );

@@ -264,4 +264,10 @@ class Prb_String
 		$other_str = $other_str->toS();
 		return strcmp( $this->raw(), $other_str->raw() );
 	}
+	
+	// TODO: Document!
+	public function toN()
+	{
+		return Prb::_Numeric( (float)$this->string );
+	}
 }
