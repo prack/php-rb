@@ -18,7 +18,7 @@ class Prb_Hash extends Prb_Abstract_Collection
 	public function get( $key )
 	{
 		$key = (string)$key;
-		if ( !array_key_exists( $key, $this->array ) )
+		if ( is_null( $key ) || !array_key_exists( $key, $this->array ) )
 			return $this->getDefault();
 		
 		return $this->array[ $key ];
@@ -118,7 +118,7 @@ class Prb_Hash extends Prb_Abstract_Collection
 	// TODO: Document!
 	public function contains( $key )
 	{
-		return array_key_exists( $key, $this->array );
+		return is_null( $key ) ? null : array_key_exists( $key, $this->array );
 	}
 	
 	// TODO: Document!
