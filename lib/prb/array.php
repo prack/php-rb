@@ -266,7 +266,7 @@ class Prb_Array extends Prb_Abstract_Collection
 	 * if and only if they have the same length and the value of each element is
 	 * equal to the value of the corresponding element in the other array.
 	 *
-	 * Note: This function doesn't require Prack objects, but each object
+	 * Note: This function doesn't require Prb-included objects, but each object
 	 * MUST conform to Prb_Interface_Comparable. Primitives like php strings,
 	 * arrays, and numerics anywhere in the array will result in being
 	 * incomparable. This is by design, since PHP type comparison is a world
