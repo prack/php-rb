@@ -27,6 +27,18 @@ class Prb_String
 		throw new Prb_Exception_Runtime_DelegationFailed( "cannot delegate {$method} in Prb_String" );
 	}
 	
+		// TODO: Document!
+	public function base64Encode()
+	{
+		return Prb::_String( base64_encode( $this->string ) );
+	}
+	
+	// TODO: Document!
+	public function base64Decode()
+	{
+		return Prb::_String( base64_decode( $this->string ) );
+	}
+	
 	// TODO: Document!
 	public function raw()
 	{
