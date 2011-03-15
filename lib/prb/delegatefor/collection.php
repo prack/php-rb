@@ -78,4 +78,21 @@ class Prb_DelegateFor_Collection
 		return $wrapped;
 	}
 	
+	// TODO: Document!
+	static function detect( $wrapper, $callback )
+	{
+		$raw = $wrapper->raw();
+		foreach ( $raw as $index => $item )
+		{
+			if ( is_numeric( $index ) )
+				$result = call_user_func( $callback, $item );
+			else if ( is_string( $index ) )
+				$result = call_user_func( $callback, $index, $item );
+			
+			if ( $result == true )
+				return $item;
+		}
+		
+		return null;
+	}
 }
