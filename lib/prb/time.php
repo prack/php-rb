@@ -30,6 +30,12 @@ class Prb_Time extends Prb_Numeric
 	}
 	
 	// TODO: Document!
+	public function httpdate()
+	{
+		return Prb::_String( http_date( (int)$this->numeric ) );
+	}
+	
+	// TODO: Document!
 	public function getSeconds()
 	{
 		return $this->seconds;
