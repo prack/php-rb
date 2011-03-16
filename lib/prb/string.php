@@ -9,6 +9,12 @@ class Prb_String
 	private $string;
 	
 	// TODO: Document!
+	static function md5( $string )
+	{
+		return Prb::_String( md5( $string->raw() ) );
+	}
+	
+	// TODO: Document!
 	function __construct( $string = '' )
 	{
 		// We cast it here in case it's null, which will yield an empty string.
