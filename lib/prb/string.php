@@ -183,6 +183,29 @@ class Prb_String
 	}
 	
 	// TODO: Document!
+	public function scan( $pattern )
+	{
+		$this->match( $pattern, $matches );
+		
+		if ( empty( $matches ) )
+			return Prb::_Array();
+		
+		$as_array = Prb::_Array();
+		
+		array_shift( $matches );
+		foreach ( $matches as $match )
+		{
+			if ( is_array( $match ) )
+			{
+				foreach ( $match as $group_member )
+					$as_array->push( Prb::_Array( array( Prb::_String( $group_member ) ) ) );
+			}
+		}
+		
+		return $as_array;
+	}
+	
+	// TODO: Document!
 	public function concat( $other )
 	{
 		$this->string .= $other->raw();
