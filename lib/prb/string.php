@@ -58,6 +58,12 @@ class Prb_String
 	}
 	
 	// TODO: Document!
+	public function toStr()
+	{
+		return clone( $this );
+	}
+	
+	// TODO: Document!
 	public function length()
 	{
 		return strlen( $this->string );
