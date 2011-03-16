@@ -161,7 +161,7 @@ class Prack_Utils_LoggerTest extends PHPUnit_Framework_TestCase
 		
 		$logger->info( Prb::_String( 'hello' ) );
 		$io->rewind();
-		$this->assertTrue( $io->read()->match( '/\[\d\d#\d{5}\].*hello/' ) );
+		$this->assertTrue( $io->read()->match( '/\[\d\d#\d{1,5}\].*hello/' ) );
 	} // It should allow direct setting of the default formatter's datetime format
 	
 	/**
