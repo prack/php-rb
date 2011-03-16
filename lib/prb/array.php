@@ -230,7 +230,7 @@ class Prb_Array extends Prb_Abstract_Collection
 		
 		$as_strings = Prb::_Array();
 		foreach ( $this->array as $item )
-			$as_strings->push( $item->raw() );
+			$as_strings->push( is_null( $item ) ? '' : $item->toS()->raw() );
 		
 		return Prb::_String( implode( $separator->raw(), $as_strings->raw() ) );
 	}
