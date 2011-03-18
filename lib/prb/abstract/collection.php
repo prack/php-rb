@@ -28,8 +28,6 @@ abstract class Prb_Abstract_Collection
 		$this_class = get_class( $this );
 		throw new Prb_Exception_Runtime_DelegationFailed( "cannot delegate {$method} in {$this_class}" );
 	}
-
-	abstract public function collect( $callback );
 	
 	// TODO: Document!
 	public function length()
