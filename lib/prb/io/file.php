@@ -60,28 +60,36 @@ class Prb_IO_File extends Prb_IO
 		// Unset FORCE_TEXT bit if present.
 		$bitmask = $bitmask ^ ( $bitmask & self::FORCE_TEXT );
 		
-		if ( !file_exists( $this->path ) && !(bool)( $bitmask & self::CREATE ) )
-			throw new Prb_Exception_System_ErrnoENOENT( "file not found for no-create open at {$this->path}" );
+		if ( !file_exists( $this->path->raw() ) && !(bool)( $bitmask & self::CREATE ) )
+			throw new Prb_Exception_System_ErrnoENOENT( "file not found for no-create open at {$this->path->raw()}" );
 		
 		$mode  = self::modeFor( $bitmask );
 		$mode .= $this->is_binmode ? 'b' : 't';
 		
-		parent::__construct( fopen( $path, $mode ), true );
+		parent::__construct( fopen( $path->raw(), $mode ), true );
 		
 		$this->is_readable = (bool)( $bitmask & self::READ  );
 		$this->is_writable = (bool)( $bitmask & self::WRITE );
 	}
 	
 	// TODO: Document!
+	public function read( $length = null, $buffer = null )
+	{
+		if ( is_dir( $this->path->raw() ) )
+			throw new Prb_Exception_System_ErrnoEISDIR( "file is directory at {$this->path->raw()}" );
+		return parent::read( $length, $buffer );
+	}
+	
+	// TODO: Document!
 	public function chmod( $permissions )
 	{
-		chmod( $this->path, $permissions );
+		chmod( $this->path->raw(), $permissions );
 	}
 	
 	// TODO: Document!
 	public function unlink()
 	{
-		unlink( $this->path );
+		unlink( $this->path->raw() );
 	}
 	
 	public function delete() { return $this->unlink(); }

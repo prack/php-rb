@@ -5,14 +5,16 @@ class Prb_IO_Tempfile extends Prb_IO_File
   implements Prb_Interface_ReadableStreamlike, Prb_Interface_WritableStreamlike
 {
 	// TODO: Document!
-	static function generatePath( $prefix = 'prack-tmp' )
+	static function generatePath( $prefix = null )
 	{
-		return tempnam( sys_get_temp_dir(), $prefix );
+		$prefix = is_null( $prefix ) ? Prb::_String( 'prack_tmp' ) : $prefix;
+		return Prb::_String( tempnam( sys_get_temp_dir(), $prefix->raw() ) );
 	}
 	
 	// TODO: Document!
-	function __construct( $prefix = 'prack-tmp' )
+	function __construct( $prefix = null )
 	{
+		$prefix = is_null( $prefix ) ? null : $prefix;
 		parent::__construct( self::generatePath( $prefix ), parent::TRUNCATE_AND_READWRITE );
 	}
 	
