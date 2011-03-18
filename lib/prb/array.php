@@ -130,6 +130,28 @@ class Prb_Array extends Prb_Abstract_Collection
 		return $result;
 	}
 	
+	// TODO: Document!
+	public function select( $callback )
+	{
+		if ( !is_callable( $callback ) )
+			throw new Prb_Exception_Callback();
+		
+		$selected = array();
+		
+		foreach ( $this->array as $item )
+		{
+			if ( $item instanceof Prb_Array )
+				$valid = call_user_func_array( $callback, $item->raw() );
+			else
+				$valid = call_user_func( $callback, $item );
+			
+			if ( $valid == true )
+				array_push( $selected, $item );
+		}
+		
+		return Prb::_Array( $selected );
+	}
+	
 		// TODO: Document!
 	public function sortBy( $callback )
 	{
