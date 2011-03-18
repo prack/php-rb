@@ -27,6 +27,26 @@ class Prb_Array extends Prb_Abstract_Collection
 	}
 	
 	// TODO: Document!
+	public function fetch()
+	{
+		$args = func_get_args();
+		$argc = count( $args );
+		
+		switch ( $argc )
+		{
+			case 1:
+				return $this->get( $this->translateBang( $args[ 0 ] ) );
+			case 2:
+				$key = $this->translate( $args[ 0 ] );
+				if ( is_null( $key ) || !array_key_exists( $key, $this->array ) )
+					return $args[ 1 ];
+				return $this->get( $key );
+		}
+		
+		return null;
+	}
+	
+	// TODO: Document!
 	public function set( $index, $item )
 	{
 		$index  = $this->translateBang( (int)$index );

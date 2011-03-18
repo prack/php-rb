@@ -23,8 +23,8 @@ class Prb_DelegateFor_Collection
 	 */
 	static function translate( $wrapper, $index )
 	{
-		$translated = ( $index < 0 ) ? $wrapper->length() + $index
-		                             : $index;
+		$translated = ( $index < 0 ) ? $wrapper->length() + (int)$index
+		                             : (int)$index;
 		
 		return ( $translated >= 0 ) ? $translated : null;
 	}

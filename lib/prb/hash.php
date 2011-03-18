@@ -25,6 +25,25 @@ class Prb_Hash extends Prb_Abstract_Collection
 	}
 	
 	// TODO: Document!
+	public function fetch()
+	{
+		$args = func_get_args();
+		$argc = count( $args );
+		
+		switch ( $argc )
+		{
+			case 1:
+				return $this->get( $args[ 0 ] );
+			case 2:
+				if ( is_null( $key ) || !$this->contains( $key ) )
+					return $args[ 1 ];
+				return $this->get( $key );
+		}
+		
+		return null;
+	}
+	
+	// TODO: Document!
 	public function set( $key, $item )
 	{
 		$this->array[ $key ] = $item;
