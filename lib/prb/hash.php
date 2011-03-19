@@ -167,7 +167,13 @@ class Prb_Hash extends Prb_Abstract_Collection
 	{
 		return Prb::_Hash( parent::sortBy( $callback ) );
 	}
-
+	
+	// TODO: Document!
+	public function toHash()
+	{
+		return clone $this;
+	}
+	
 	// TODO: Document!
 	public function toA()
 	{
