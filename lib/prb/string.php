@@ -178,14 +178,22 @@ class Prb_String
 	// TODO: Document!
 	public function gsub( $pattern, $replacement )
 	{
+		$string = clone $this;
+		$string->gsubInPlace( $pattern, $replacement );
+		return $string;
+	}
+	
+	public function gsubInPlace( $pattern, $replacement )
+	{
 		$result = null;
-		
 		if ( is_callable( $replacement ) )
 			$result = preg_replace_callback( $pattern, $replacement, $this->string );
 		else if ( $replacement instanceof Prb_String )
 			$result = preg_replace( $pattern, $replacement->raw(), $this->string );
 		
-		return Prb::_String( $result );
+		$this->string = $result;
+		
+		return $this;
 	}
 	
 	// TODO: Document!
