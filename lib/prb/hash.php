@@ -35,6 +35,7 @@ class Prb_Hash extends Prb_Abstract_Collection
 			case 1:
 				return $this->get( $args[ 0 ] );
 			case 2:
+				$key = $args[ 0 ];
 				if ( is_null( $key ) || !$this->contains( $key ) )
 					return $args[ 1 ];
 				return $this->get( $key );
@@ -137,7 +138,7 @@ class Prb_Hash extends Prb_Abstract_Collection
 	// TODO: Document!
 	public function contains( $key )
 	{
-		return is_null( $key ) ? null : array_key_exists( $key, $this->array );
+		return is_null( $key ) ? false : array_key_exists( $key, $this->array );
 	}
 	
 	// TODO: Document!
