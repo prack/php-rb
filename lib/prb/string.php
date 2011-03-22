@@ -2,7 +2,7 @@
 
 // TODO: Document!
 class Prb_String
-  implements Prb_I_Stringable, Prb_I_Comparable
+  implements Prb_I_Stringable, Prb_I_Comparable, Prb_I_Stringlike
 {
 	const DELEGATE = 'Prb_DelegateFor_Collection';
 	

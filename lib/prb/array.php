@@ -13,7 +13,7 @@
  * @package Prb
  */
 class Prb_Array extends Prb_Abstract_Collection
-  implements Prb_I_Enumerable, Prb_I_Comparable
+  implements Prb_I_Enumerable, Prb_I_Comparable, Prb_I_Arraylike
 {
 	// TODO: Document!
 	public function get( $key )
