@@ -32,7 +32,7 @@ class Prb_IO_FileTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_throw_an_exception_when_file_at_specified_path_is_inaccessible()
 	{
-		$filepath = Prb_IO_Tempfile::generatePath()->concat( Prb::_Time()->getSeconds()->toS() );
+		$filepath = Prb_IO_Tempfile::generatePath()->concat( Prb::Time()->getSeconds()->toS() );
 		
 		try
 		{

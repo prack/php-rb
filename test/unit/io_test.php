@@ -72,7 +72,7 @@ class Prb_IOTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_be_able_to_handle_read_with_length_and_buffer()
 	{
-		$buffer = Prb::_String();
+		$buffer = Prb::Str();
 		$result = $this->io->read( 1, $buffer );
 		$this->assertEquals( 'h', $result->raw() );
 		$this->assertSame( $buffer, $result );
@@ -85,7 +85,7 @@ class Prb_IOTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_be_able_to_handle_read_with_null_and_buffer()
 	{
-		$buffer = Prb::_String();
+		$buffer = Prb::Str();
 		$result = $this->io->read( null, $buffer );
 		$this->assertEquals( 'hello world', $result->raw() );
 		$this->assertSame( $buffer, $result );
@@ -134,10 +134,10 @@ class Prb_IOTest extends PHPUnit_Framework_TestCase
 	{
 		$callback = array( $this, 'addToItems' );
 		
-		$this->items = Prb::_Array();
+		$this->items = Prb::Ary();
 		
 		$this->io->each( $callback );
-		$this->assertEquals( array( Prb::_String( 'hello world' ) ), $this->items->raw() );
+		$this->assertEquals( array( Prb::Str( 'hello world' ) ), $this->items->raw() );
 		$this->assertEquals( count( $this->items ), $this->io->getLineNo() );
 		
 		$this->io->close();
@@ -192,7 +192,7 @@ class Prb_IOTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_handle_write()
 	{
-		$this->io->write( Prb::_String( 'EASTER EGG FOR JASON' ) );
+		$this->io->write( Prb::Str( 'EASTER EGG FOR JASON' ) );
 		$this->io->rewind();
 		
 		$this->assertEquals( 'EASTER EGG FOR JASON', $this->io->read()->raw() );
@@ -200,7 +200,7 @@ class Prb_IOTest extends PHPUnit_Framework_TestCase
 		$this->io->close();
 		try
 		{
-			$this->io->write( Prb::_String( 'denied' ) );
+			$this->io->write( Prb::Str( 'denied' ) );
 		} 
 		catch ( Prb_Exception_IO $e )
 		{

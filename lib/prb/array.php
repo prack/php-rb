@@ -13,7 +13,7 @@
  * @package Prb
  */
 class Prb_Array extends Prb_Abstract_Collection
-  implements Prb_Interface_Enumerable, Prb_Interface_Comparable
+  implements Prb_I_Enumerable, Prb_I_Comparable
 {
 	// TODO: Document!
 	public function get( $key )
@@ -149,13 +149,13 @@ class Prb_Array extends Prb_Abstract_Collection
 				array_push( $selected, $item );
 		}
 		
-		return Prb::_Array( $selected );
+		return Prb::Ary( $selected );
 	}
 	
 		// TODO: Document!
 	public function sortBy( $callback )
 	{
-		return Prb::_Array( parent::sortBy( $callback ) );
+		return Prb::Ary( parent::sortBy( $callback ) );
 	}
 	
 	// TODO: Document!
@@ -174,7 +174,7 @@ class Prb_Array extends Prb_Abstract_Collection
 				array_push( $map, call_user_func( $callback, $item ) );
 		}
 		
-		return Prb::_Array( $map );
+		return Prb::Ary( $map );
 	}
 	
 	public function map( $callback ) { return $this->collect( $callback ); }
@@ -194,7 +194,7 @@ class Prb_Array extends Prb_Abstract_Collection
 		$sorted = $this->array;
 		usort( $sorted, $callback );
 		
-		return Prb::_Array( $sorted );
+		return Prb::Ary( $sorted );
 	}
 	
 	// TODO: Document!
@@ -216,7 +216,7 @@ class Prb_Array extends Prb_Abstract_Collection
 			{
 				$translated_end--;
 				if ( $translated_end < 0 )
-					return Prb::_Array();
+					return Prb::Ary();
 			}
 			
 			if ( $translated_end >= $this->length() )
@@ -232,7 +232,7 @@ class Prb_Array extends Prb_Abstract_Collection
 	// TODO: Document!
 	public function compact()
 	{
-		$compacted = Prb::_Array();
+		$compacted = Prb::Ary();
 		foreach ( $this->raw() as $item )
 			if ( isset( $item ) )
 				$compacted->push( $item );
@@ -268,13 +268,13 @@ class Prb_Array extends Prb_Abstract_Collection
 	public function join( $separator = null )
 	{
 		if ( is_null( $separator ) )
-			$separator = Prb::_String( ' ' );
+			$separator = Prb::Str( ' ' );
 		
-		$as_strings = Prb::_Array();
+		$as_strings = Prb::Ary();
 		foreach ( $this->array as $item )
 			$as_strings->push( is_null( $item ) ? '' : $item->toS()->raw() );
 		
-		return Prb::_String( implode( $separator->raw(), $as_strings->raw() ) );
+		return Prb::Str( implode( $separator->raw(), $as_strings->raw() ) );
 	}
 	
 	// TODO: Document!
@@ -309,20 +309,20 @@ class Prb_Array extends Prb_Abstract_Collection
 	 * equal to the value of the corresponding element in the other array.
 	 *
 	 * Note: This function doesn't require Prb-included objects, but each object
-	 * MUST conform to Prb_Interface_Comparable. Primitives like php strings,
+	 * MUST conform to Prb_I_Comparable. Primitives like php strings,
 	 * arrays, and numerics anywhere in the array will result in being
 	 * incomparable. This is by design, since PHP type comparison is a world
 	 * unto itself.
 	 *
 	 * @author Joshua Morris
 	 * @access public
-	 * @param $other_ary mixed Prb_Interface_Comparable responding to toA
+	 * @param $other_ary mixed Prb_I_Comparable responding to toA
 	 * @return mixed see function description
 	 */
 	// This function is an example of PHP's ad-hoc inferiority.
 	public function compare( $other_ary )
 	{
-		if ( !( $other_ary instanceof Prb_Interface_Comparable ) && !( method_exists( $other_ary, 'toA' ) ) )
+		if ( !( $other_ary instanceof Prb_I_Comparable ) && !( method_exists( $other_ary, 'toA' ) ) )
 			return null;
 		
 		$comparison = 0; // equal
@@ -342,8 +342,8 @@ class Prb_Array extends Prb_Abstract_Collection
 				continue;
 			
 			// Compare two objects via compare method:
-			else if ( $item       instanceof Prb_Interface_Comparable &&
-				        $other_item instanceof Prb_Interface_Comparable    )
+			else if ( $item       instanceof Prb_I_Comparable &&
+				        $other_item instanceof Prb_I_Comparable    )
 			{
 				$comparison = $item->compare( $other_item );
 				if ( $comparison != 0 )
@@ -361,6 +361,6 @@ class Prb_Array extends Prb_Abstract_Collection
 	// TODO: Document!
 	public function reverse()
 	{
-		return Prb::_Array( array_reverse( $this->array ) );
+		return Prb::Ary( array_reverse( $this->array ) );
 	}
 }

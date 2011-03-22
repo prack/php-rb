@@ -2,7 +2,7 @@
 
 // TODO: Document!
 class Prb_Set extends Prb_Array
-  implements Prb_Interface_Enumerable
+  implements Prb_I_Enumerable
 {
 	// TODO: Document!
 	public function each( $callback )

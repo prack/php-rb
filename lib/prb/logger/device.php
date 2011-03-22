@@ -20,12 +20,12 @@ class Prb_Logger_Device
 		
 		// Ruby accepts a string for $io_or_filename, opening a logfile if needed.
 		// We're going to skip that for simplicity, and assume $io_or_filename
-		// is a Prack_Interface_WritableStreamlike.
+		// is a Prack_I_WritableStreamlike.
 		// This abstraction will help add more functionality later.
-		if ( $io_or_filename instanceof Prb_Interface_WritableStreamlike )
+		if ( $io_or_filename instanceof Prb_I_WritableStreamlike )
 			$this->io = $io_or_filename;
 		else
-			throw new Prb_Exception_Type( 'FAILSAFE: __construct $io_or_filename must be Prack_Interface_WritableStreamlike' );
+			throw new Prb_Exception_Type( 'FAILSAFE: __construct $io_or_filename must be Prack_I_WritableStreamlike' );
 			
 		$this->filename   = null;
 		$this->shift_age  = null;
@@ -42,7 +42,7 @@ class Prb_Logger_Device
 		}
 		catch ( Exception $e )
 		{
-			$this->owner->warn( Prb::_String( "log writing failed. {$e->getMessage()}" ) );
+			$this->owner->warn( Prb::Str( "log writing failed. {$e->getMessage()}" ) );
 		}
 	}
 	

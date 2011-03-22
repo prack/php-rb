@@ -1,7 +1,7 @@
 <?php
 
 // TODO: Document!
-interface Prb_Interface_WritableStreamlike
+interface Prb_I_WritableStreamlike
 {
 	public function puts();
 	public function write( $string );

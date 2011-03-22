@@ -15,8 +15,8 @@ class Prb_Time extends Prb_Numeric
 		parent::__construct( $time );
 		
 		$abs = abs( $time );
-		$this->seconds      = Prb::_Numeric( (int)$abs );
-		$this->microseconds = Prb::_Numeric( (int)( ( $abs - floor( $abs ) ) * pow( 10, 6 ) ) );
+		$this->seconds      = Prb::Num( (int)$abs );
+		$this->microseconds = Prb::Num( (int)( ( $abs - floor( $abs ) ) * pow( 10, 6 ) ) );
 	}
 	
 	// TODO: Document!
@@ -26,13 +26,13 @@ class Prb_Time extends Prb_Numeric
 			throw new Prb_Exception_Argument( 'strftime $format must be instance of Prb_String' );
 		
 		$formatted = strftime( $format->raw(), (int)$this->numeric );
-		return is_string( $formatted ) ? Prb::_String( $formatted ) : Prb::_String();
+		return is_string( $formatted ) ? Prb::Str( $formatted ) : Prb::Str();
 	}
 	
 	// TODO: Document!
 	public function httpdate()
 	{
-		return Prb::_String( http_date( (int)$this->numeric ) );
+		return Prb::Str( http_date( (int)$this->numeric ) );
 	}
 	
 	// TODO: Document!

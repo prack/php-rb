@@ -1,6 +1,6 @@
 <?php
 
-interface Prb_Interface_Comparable
+interface Prb_I_Comparable
 {
 	// TODO: Document!
 	public function compare( $other );

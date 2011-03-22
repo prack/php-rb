@@ -15,7 +15,7 @@ class Prb_SetTest extends PHPUnit_Framework_TestCase
 		$callback = array( $this, 'addToItems' );
 		$items    = array( 'foo', 'bar' );
 		
-		$wrapper = Prb::_Set( $items );
+		$wrapper = Prb::Set( $items );
 		$wrapper->each( $callback );
 		
 		$this->assertEquals( $items, $this->items );

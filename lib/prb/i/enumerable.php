@@ -1,7 +1,7 @@
 <?php
 
 // TODO: Document!
-interface Prb_Interface_Enumerable
+interface Prb_I_Enumerable
 {
 	public function each( $callback );
 }

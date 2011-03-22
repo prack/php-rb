@@ -38,14 +38,14 @@ Beating up an Array
 	$ cd php-ruby
 	$ php -a
 	php > include "autoload.php";
-	php > $array    = Prb::_Array( array( Prb::_String( 'foo' ), Prb::_String( 'bar' ) ) );
+	php > $array    = Prb::Ary( array( Prb::Str( 'foo' ), Prb::Str( 'bar' ) ) );
 	php > $callback = create_function( '$acc, $item', 'return $acc->concat( $item );' );
-	php > var_dump( $array->inject( Prb::_String( 'hello' ), $callback ) );
+	php > var_dump( $array->inject( Prb::Str( 'hello' ), $callback ) );
 	object(Prb_String)#4 (1) {
 	  ["string:private"]=>
 	  string(11) "hellofoobar"
 	}
-	php > var_dump( $array->inject( Prb::_Array(), $callback ) );
+	php > var_dump( $array->inject( Prb::Ary(), $callback ) );
 	object(Prb_Array)#4 (1) {
 	  ["array:protected"]=>
 	  array(2) {

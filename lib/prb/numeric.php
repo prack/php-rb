@@ -1,7 +1,7 @@
 <?php
 
 class Prb_Numeric
-  implements Prb_Interface_Comparable
+  implements Prb_I_Comparable
 {
 	protected $numeric;
 	
@@ -35,7 +35,7 @@ class Prb_Numeric
 	// TODO: Document!
 	public function toS()
 	{
-		return Prb::_String( (string)$this->numeric );
+		return Prb::Str( (string)$this->numeric );
 	}
 	
 	// TODO: Document!

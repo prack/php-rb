@@ -2,7 +2,7 @@
 
 // TODO: Document!
 class Prb_IO_String extends Prb_IO
-  implements Prb_Interface_ReadableStreamlike, Prb_Interface_WritableStreamlike, Prb_Interface_LengthAware
+  implements Prb_I_ReadableStreamlike, Prb_I_WritableStreamlike, Prb_I_LengthAware
 {	
 	const MAX_STRING_LENGTH = 1048576; // Maximum size in bytes of in-memory string buffer.
 	
@@ -11,9 +11,9 @@ class Prb_IO_String extends Prb_IO
 	// TODO: Document!
 	function __construct( $string = null )
 	{
-		$string = is_null( $string ) ? Prb::_String() : $string;
-		if ( !( $string instanceof Prb_Interface_Stringable ) )
-			throw new Prb_Exception_Type( 'FAILSAFE: __construct $string is not a Prb_Interface_Stringable' );
+		$string = is_null( $string ) ? Prb::Str() : $string;
+		if ( !( $string instanceof Prb_I_Stringable ) )
+			throw new Prb_Exception_Type( 'FAILSAFE: __construct $string is not a Prb_I_Stringable' );
 		
 		if ( $string->length() > self::MAX_STRING_LENGTH )
 			throw new Prb_Exception_Argument( 'FAILSAFE: __construct $string too big for string io' );
@@ -37,7 +37,7 @@ class Prb_IO_String extends Prb_IO
 		
 		$result = parent::read( $adjusted_length, $buffer );
 		
-		return ( is_null( $length ) && is_null( $result ) ) ? Prb::_String() : $result;
+		return ( is_null( $length ) && is_null( $result ) ) ? Prb::Str() : $result;
 	}
 	
 	// TODO: Document!

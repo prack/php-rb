@@ -1,7 +1,7 @@
 <?php
 
 class Prb_Logger_DeviceTest_WeirdIO
-  implements Prb_Interface_WritableStreamlike
+  implements Prb_I_WritableStreamlike
 {
 	// TODO: Document!
 	public function write( $message )
@@ -26,7 +26,7 @@ class Prb_Logger_DeviceTest extends PHPUnit_Framework_TestCase
 	public function It_should_throw_an_exception_when_created_with_a_non_writable_streamlike()
 	{
 		$this->setExpectedException( 'Prb_Exception_Type' );
-		new Prb_Logger_Device( null, Prb::_String( 'Not a writable streamlike' ) );
+		new Prb_Logger_Device( null, Prb::Str( 'Not a writable streamlike' ) );
 	} // It should throw an exception when created with a non-writable-streamlike
 	
 	/**
@@ -41,7 +41,7 @@ class Prb_Logger_DeviceTest extends PHPUnit_Framework_TestCase
 		           ->method( 'warn' );
 		
 		$logger_device = new Prb_Logger_Device( $mock_owner, new Prb_Logger_DeviceTest_WeirdIO() );
-		$logger_device->write( Prb::_String( 'Trigger the exception' ) );
+		$logger_device->write( Prb::Str( 'Trigger the exception' ) );
 	} // It should notify the owner when the log cannot be written to
 	
 	/**
@@ -52,7 +52,7 @@ class Prb_Logger_DeviceTest extends PHPUnit_Framework_TestCase
 	public function It_should_write_to_the_underlying_io_object()
 	{
 		$logger_device = new Prb_Logger_Device( null, Prb_IO::withString(), Prb_Logger::UNKNOWN + 1 );
-		$logger_device->write( Prb::_String( 'error lol' ) );
+		$logger_device->write( Prb::Str( 'error lol' ) );
 		$logger_device->getIO()->rewind();
 		$this->assertTrue( $logger_device->getIO()->read()->match( '/error lol/' ) );
 	} // It should write to the underlying io object

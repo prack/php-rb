@@ -10,6 +10,6 @@ class Prb_TestHelper
 		$out  = '';
 		for( $c = 0; $c < $length; $c++ )
 			$out .= (string)$aZ09[ mt_rand( 0, count( $aZ09 ) - 1 ) ];
-		return Prb::_String( $out );
+		return Prb::Str( $out );
 	}
 }

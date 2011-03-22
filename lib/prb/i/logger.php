@@ -1,7 +1,7 @@
 <?php
 
 // TODO: Document!
-interface Prb_Interface_Logger
+interface Prb_I_Logger
 {
 	public function debug  ( $progname = null, $callback = null );
 	public function info   ( $progname = null, $callback = null );

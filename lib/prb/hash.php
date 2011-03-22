@@ -10,7 +10,7 @@
  * @package Prb
  */
 class Prb_Hash extends Prb_Abstract_Collection
-	implements Prb_Interface_Enumerable
+	implements Prb_I_Enumerable
 {
 	private $default;
 	
@@ -130,7 +130,7 @@ class Prb_Hash extends Prb_Abstract_Collection
 		foreach ( $this->array as $key => $item )
 			array_push( $map, call_user_func( $callback, $key, $item ) );
 		
-		return Prb::_Array( $map );
+		return Prb::Ary( $map );
 	}
 	
 	public function map( $callback ) { return $this->collect( $callback ); }
@@ -166,7 +166,7 @@ class Prb_Hash extends Prb_Abstract_Collection
 	
 	public function sortBy( $callback )
 	{
-		return Prb::_Hash( parent::sortBy( $callback ) );
+		return Prb::Hsh( parent::sortBy( $callback ) );
 	}
 	
 	// TODO: Document!
@@ -178,9 +178,9 @@ class Prb_Hash extends Prb_Abstract_Collection
 	// TODO: Document!
 	public function toA()
 	{
-		$array = Prb::_Array();
+		$array = Prb::Ary();
 		foreach ( $this->array as $key => $item )
-			$array->push( Prb::_Array( array( $key, $item ) ) );
+			$array->push( Prb::Ary( array( $key, $item ) ) );
 		return $array;
 	}
 }

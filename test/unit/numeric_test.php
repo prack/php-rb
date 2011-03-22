@@ -11,7 +11,7 @@ class Prb_NumericTest extends PHPUnit_Framework_TestCase
 	public function It_should_throw_an_exception_if_instantiated_with_a_non_numeric_primitive()
 	{
 		$this->setExpectedException( 'Prb_Exception_Type' );
-		Prb::_Numeric( 'foo' );
+		Prb::Num( 'foo' );
 	} // It should throw an exception if instantiated with a non-numeric primitive
 	
 	/**
@@ -32,8 +32,8 @@ class Prb_NumericTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_convert_to_a_Prb_String()
 	{
-		$numeric = Prb::_Numeric( 14 );
-		$this->assertEquals( Prb::_String( '14' ), $numeric->toS() );
+		$numeric = Prb::Num( 14 );
+		$this->assertEquals( Prb::Str( '14' ), $numeric->toS() );
 	} // It should convert to a Prb_String
 	
 	/**
@@ -43,7 +43,7 @@ class Prb_NumericTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_evaluate_its_value_as_a_boolean()
 	{
-		$numeric = Prb::_Numeric( 1 );
+		$numeric = Prb::Num( 1 );
 		$this->assertTrue( is_bool( $numeric->truth() ) );
 		$this->assertTrue( $numeric->truth() );
 	} // It should evaluate its value as a boolean
@@ -55,9 +55,9 @@ class Prb_NumericTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_compare_correctly_at_an_object_level()
 	{
-		$numeric = Prb::_Numeric( 0 );
-		$this->assertGreaterThanOrEqual(  1, $numeric->compare( Prb::_Numeric( -1 ) ) );
-		$this->assertLessThanOrEqual   ( -1, $numeric->compare( Prb::_Numeric(  1 ) ) );
-		$this->assertEquals            (  0, $numeric->compare( Prb::_Numeric(  0 ) ) );
+		$numeric = Prb::Num( 0 );
+		$this->assertGreaterThanOrEqual(  1, $numeric->compare( Prb::Num( -1 ) ) );
+		$this->assertLessThanOrEqual   ( -1, $numeric->compare( Prb::Num(  1 ) ) );
+		$this->assertEquals            (  0, $numeric->compare( Prb::Num(  0 ) ) );
 	} // It should compare correctly at an object-level
 }

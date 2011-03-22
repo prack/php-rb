@@ -29,7 +29,7 @@ class Prb_ArrayTest extends PHPUnit_Framework_TestCase
 		$callback = array( $this, 'addToItems' );
 		$items    = array( 'foo', 'bar' );
 		
-		$wrapper = Prb::_Array( $items );
+		$wrapper = Prb::Ary( $items );
 		$wrapper->each( $callback );
 		
 		$this->assertEquals( $items, $this->items );
@@ -42,11 +42,11 @@ class Prb_ArrayTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_handle_set()
 	{
-		$wrapper = Prb::_Array( array( 'foo', 'bar' ) );
+		$wrapper = Prb::Ary( array( 'foo', 'bar' ) );
 		$wrapper->set( 1, 'cow' );
 		$this->assertEquals( array( 'foo', 'cow' ), $wrapper->raw() );
 		
-		$wrapper = Prb::_Array( array( 'foo', 'bar' ) );
+		$wrapper = Prb::Ary( array( 'foo', 'bar' ) );
 		$wrapper->set( 4, 'baz' );
 		$this->assertEquals( array( 'foo', 'bar', null, null, 'baz' ), $wrapper->raw() );
 	} // It should handle set
@@ -59,7 +59,7 @@ class Prb_ArrayTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_handle_get()
 	{
-		$wrapper = Prb::_Array( array( 'foo', 'bar', 'baz' ) );
+		$wrapper = Prb::Ary( array( 'foo', 'bar', 'baz' ) );
 		$this->assertEquals( 'foo', $wrapper->get( 0 ) );
 		$this->assertEquals( 'bar', $wrapper->get( 1 ) );
 		$this->assertEquals( 'baz', $wrapper->get( 2 ) );
@@ -73,7 +73,7 @@ class Prb_ArrayTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_return_null_on_get_with_a_negative_index_that_is_out_of_bounds()
 	{
-		$wrapper = Prb::_Array( array( 'foo', 'bar', 'baz' ) );
+		$wrapper = Prb::Ary( array( 'foo', 'bar', 'baz' ) );
 		$this->assertNull( $wrapper->get( -4 ) );
 	} // It should return null on get with a negative index that is out of bounds
 	
@@ -84,7 +84,7 @@ class Prb_ArrayTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_throw_an_exception_on_set_with_a_negative_index_that_is_out_of_bounds()
 	{
-		$wrapper = Prb::_Array( array( 'foo', 'bar', 'baz' ) );
+		$wrapper = Prb::Ary( array( 'foo', 'bar', 'baz' ) );
 		
 		try
 		{
@@ -105,7 +105,7 @@ class Prb_ArrayTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_handle_push()
 	{
-		$wrapper = Prb::_Array( array( 'foo', 'bar' ) );
+		$wrapper = Prb::Ary( array( 'foo', 'bar' ) );
 		$wrapper->push( 'baz' );
 		$this->assertEquals( array( 'foo', 'bar', 'baz' ), $wrapper->raw() );
 		$this->assertTrue( $wrapper->length() == 3 );
@@ -118,7 +118,7 @@ class Prb_ArrayTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_handle_pop()
 	{
-		$wrapper = Prb::_Array( array( 'foo', 'bar', 'baz' ) );
+		$wrapper = Prb::Ary( array( 'foo', 'bar', 'baz' ) );
 		$result  = $wrapper->pop();
 		$this->assertEquals( 'baz', $result );
 		$this->assertEquals( array( 'foo', 'bar' ), $wrapper->raw() );
@@ -132,7 +132,7 @@ class Prb_ArrayTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_handle_unshift()
 	{
-		$wrapper = Prb::_Array( array( 'bar', 'baz' ) );
+		$wrapper = Prb::Ary( array( 'bar', 'baz' ) );
 		$wrapper->unshift( 'foo' );
 		$this->assertEquals( array( 'foo', 'bar', 'baz' ), $wrapper->raw() );
 		$this->assertTrue( $wrapper->count() == 3 );
@@ -145,7 +145,7 @@ class Prb_ArrayTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_handle_shift()
 	{
-		$wrapper = Prb::_Array( array( 'foo', 'bar', 'baz' ) );
+		$wrapper = Prb::Ary( array( 'foo', 'bar', 'baz' ) );
 		$result  = $wrapper->shift();
 		$this->assertEquals( 'foo', $result );
 		$this->assertEquals( array( 'bar', 'baz' ), $wrapper->raw() );
@@ -168,7 +168,7 @@ class Prb_ArrayTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_know_if_it_s_empty()
 	{
-		$wrapper = Prb::_Array( array() );
+		$wrapper = Prb::Ary( array() );
 		
 		$this->assertTrue( $wrapper->isEmpty() );
 		
@@ -185,13 +185,13 @@ class Prb_ArrayTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_handle_slice()
 	{
-		$wrapper = Prb::_Array( array( 'foo', 'bar', 'baz' ) );
+		$wrapper = Prb::Ary( array( 'foo', 'bar', 'baz' ) );
 		
-		$this->assertEquals( Prb::_Array( array( 'foo', 'bar' ) ), $wrapper->slice(  0, 1 ) );
-		$this->assertEquals( Prb::_Array( array( 'foo', 'bar' ) ), $wrapper->slice(  0, -2 ) );
-		$this->assertEquals( Prb::_Array( array( 'foo', 'bar' ) ), $wrapper->slice( -3, -2 ) );
-		$this->assertEquals( Prb::_Array( array( 'foo', 'bar' ) ), $wrapper->slice( -3,  1 ) );
-		$this->assertEquals( Prb::_Array( array( 'baz' ) ),        $wrapper->slice(  2,  4 ) ); // range should be clipped to array size
+		$this->assertEquals( Prb::Ary( array( 'foo', 'bar' ) ), $wrapper->slice(  0, 1 ) );
+		$this->assertEquals( Prb::Ary( array( 'foo', 'bar' ) ), $wrapper->slice(  0, -2 ) );
+		$this->assertEquals( Prb::Ary( array( 'foo', 'bar' ) ), $wrapper->slice( -3, -2 ) );
+		$this->assertEquals( Prb::Ary( array( 'foo', 'bar' ) ), $wrapper->slice( -3,  1 ) );
+		$this->assertEquals( Prb::Ary( array( 'baz' ) ),        $wrapper->slice(  2,  4 ) ); // range should be clipped to array size
 		$this->assertNull( $wrapper->slice( -5, 1 ) ); // out of bounds
 	} // It should handle slice
 	
@@ -202,8 +202,8 @@ class Prb_ArrayTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_handle_compact()
 	{
-		$wrapper = Prb::_Array( array( null, 'foo', null, 'bar', 'baz', null, null, null ) );
-		$this->assertEquals( Prb::_Array( array( 'foo', 'bar', 'baz' ) ), $wrapper->compact() );
+		$wrapper = Prb::Ary( array( null, 'foo', null, 'bar', 'baz', null, null, null ) );
+		$this->assertEquals( Prb::Ary( array( 'foo', 'bar', 'baz' ) ), $wrapper->compact() );
 	} // It should handle compact
 	
 		/**
@@ -213,14 +213,14 @@ class Prb_ArrayTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_handle_inject()
 	{
-		$wrapper = Prb::_Array( array( 'foo', 'bar', 'baz' ) );
+		$wrapper = Prb::Ary( array( 'foo', 'bar', 'baz' ) );
 		
 		$callback = create_function( '$accumulator,$item', 'return $accumulator.$item;' );
 		$this->assertEquals( 'hifoobarbaz', $wrapper->inject( 'hi', $callback ) );
 		
-		$wrapper = Prb::_Array( array(
-		  Prb::_Array( array( 'cow', 'cud' ) ),
-		  Prb::_Array( array( 'lol', 'wut' ) )
+		$wrapper = Prb::Ary( array(
+		  Prb::Ary( array( 'cow', 'cud' ) ),
+		  Prb::Ary( array( 'lol', 'wut' ) )
 		) );
 		$callback = create_function( '$accumulator,$first,$second', 'return $accumulator.$first.$second;' );
 		$this->assertEquals( 'hicowcudlolwut', $wrapper->inject( 'hi', $callback ) );
@@ -233,8 +233,8 @@ class Prb_ArrayTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_return_null_for_compare_when_incomparable()
 	{
-		$left  = Prb::_Array( array( 'foo', 'bar', 'baz' ) );
-		$right = Prb::_Array( array( 'foo', 'bar', 'baz' ) );
+		$left  = Prb::Ary( array( 'foo', 'bar', 'baz' ) );
+		$right = Prb::Ary( array( 'foo', 'bar', 'baz' ) );
 		$this->assertNull( $left->compare( $right ) );
 	} // It should return null for compare when incomparable
 	
@@ -245,7 +245,7 @@ class Prb_ArrayTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_handle_eachIndex()
 	{
-		$wrapper = Prb::_Array( array( 'foo', 'bar', 'baz' ) );
+		$wrapper = Prb::Ary( array( 'foo', 'bar', 'baz' ) );
 		
 		$callback = array( $this, 'addToItems' );
 		$wrapper->eachIndex( $callback );

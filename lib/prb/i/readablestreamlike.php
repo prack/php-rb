@@ -1,7 +1,7 @@
 <?php
 
 // TODO: Document!
-interface Prb_Interface_ReadableStreamlike
+interface Prb_I_ReadableStreamlike
 {
 	public function gets();
 	public function read( $length = null, $buffer = null );

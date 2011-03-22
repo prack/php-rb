@@ -2,7 +2,7 @@
 
 // TODO: Document!
 class Prb_IO
-  implements Prb_Interface_ReadableStreamlike, Prb_Interface_WritableStreamlike
+  implements Prb_I_ReadableStreamlike, Prb_I_WritableStreamlike
 {
 	const CHUNK_SIZE = 4096; // 4KB chunk size for read
 	
@@ -54,19 +54,19 @@ class Prb_IO
 			$remaining = is_null( $length ) ? PHP_INT_MAX : $length;
 			$read_size = min( $remaining, self::CHUNK_SIZE );
 			
-			$buffer = is_null( $buffer ) ? Prb::_String() : $buffer;
+			$buffer = is_null( $buffer ) ? Prb::Str() : $buffer;
 			if ( !( $buffer instanceof Prb_String ) )
 				throw new Prb_Exception_Lint( 'read $buffer not a string' );
 			
 			if ( feof( $this->stream ) )
-				return is_null( $length ) ? Prb::_String() : null;
+				return is_null( $length ) ? Prb::Str() : null;
 			
 			// Chunked read, as fread() is limited to 8K of data per call.
 			while ( !feof( $this->stream ) && $remaining > 0 && $temp = fread( $this->stream, $read_size ) )
 			{
 				$remaining -= strlen( $temp );
 				$read_size  = min( $remaining, self::CHUNK_SIZE );
-				$buffer->concat( Prb::_String( $temp ) );
+				$buffer->concat( Prb::Str( $temp ) );
 			}
 			
 			return $buffer;
@@ -86,7 +86,7 @@ class Prb_IO
 			
 			if ( is_string( $result ) )
 			{
-				$result = Prb::_String( $result );
+				$result = Prb::Str( $result );
 				$this->line_no += 1;
 			}
 			else if ( $result === false )
@@ -119,7 +119,7 @@ class Prb_IO
 		// TODO: Document!
 	public function readlines()
 	{
-		$lines = Prb::_Array();
+		$lines = Prb::Ary();
 		
 		while ( $line = $this->gets() )
 			$lines->push( $line );
@@ -206,7 +206,7 @@ class Prb_IO
 	// TODO: Document!
 	public function isReadable()
 	{
-		return ( $this instanceof Prb_Interface_ReadableStreamlike && $this->is_readable );
+		return ( $this instanceof Prb_I_ReadableStreamlike && $this->is_readable );
 	}
 	
 	// TODO: Document!
@@ -218,7 +218,7 @@ class Prb_IO
 	// TODO: Document!
 	public function isWritable()
 	{
-		return ( $this instanceof Prb_Interface_WritableStreamlike && $this->is_writable );
+		return ( $this instanceof Prb_I_WritableStreamlike && $this->is_writable );
 	}
 	
 	// TODO: Document!

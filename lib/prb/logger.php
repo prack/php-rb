@@ -2,7 +2,7 @@
 
 // TODO: Document!
 class Prb_Logger
-  implements Prb_Interface_Logger
+  implements Prb_I_Logger
 {
 	const DEBUG   = 0;
 	const INFO    = 1;
@@ -24,13 +24,13 @@ class Prb_Logger
 		
 		if ( is_null( $labels ) )
 		{
-			$labels = Prb::_Array( array(
-				self::DEBUG   => Prb::_String( 'DEBUG' ),
-				self::INFO    => Prb::_String( 'INFO'  ),
-				self::WARN    => Prb::_String( 'WARN'  ),
-				self::ERROR   => Prb::_String( 'ERROR' ),
-				self::FATAL   => Prb::_String( 'FATAL' ),
-				self::UNKNOWN => Prb::_String( 'ANY'   )
+			$labels = Prb::Ary( array(
+				self::DEBUG   => Prb::Str( 'DEBUG' ),
+				self::INFO    => Prb::Str( 'INFO'  ),
+				self::WARN    => Prb::Str( 'WARN'  ),
+				self::ERROR   => Prb::Str( 'ERROR' ),
+				self::FATAL   => Prb::Str( 'FATAL' ),
+				self::UNKNOWN => Prb::Str( 'ANY'   )
 			) );
 		}
 		
@@ -91,7 +91,7 @@ class Prb_Logger
 		}
 		
 		$this->device->write(
-			$this->formatMessage( $this->formatSeverity( $severity ), Prb::_Time(), $this->getProgname(), $message )
+			$this->formatMessage( $this->formatSeverity( $severity ), Prb::Time(), $this->getProgname(), $message )
 		);
 		
 		return true;
@@ -180,6 +180,6 @@ class Prb_Logger
 	private function formatSeverity( $severity )
 	{
 		$sl = self::severityLabel( $severity );
-		return is_null( $sl ) ? Prb::_String( 'ANY' ) : $sl;
+		return is_null( $sl ) ? Prb::Str( 'ANY' ) : $sl;
 	}
 }

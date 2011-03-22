@@ -21,7 +21,7 @@ class Prb_HashTest extends PHPUnit_Framework_TestCase
 		$callback = array( $this, 'addToItems' );
 		$items    = array( 'foo' => 'bar', 'baz' => 'bat' );
 		
-		$wrapper = Prb::_Hash( $items );
+		$wrapper = Prb::Hsh( $items );
 		$wrapper->each( $callback );
 		
 		$this->assertEquals( $items, $this->items );
@@ -42,7 +42,7 @@ class Prb_HashTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_handle_set()
 	{
-		$wrapper = Prb::_Hash( array( 'foo' => 'bar', 'baz' => 'bat' ) );
+		$wrapper = Prb::Hsh( array( 'foo' => 'bar', 'baz' => 'bat' ) );
 		$wrapper->set( 'foo', 'cow' );
 		$wrapper->set( 'bar', 'bar' );
 		$this->assertEquals( array( 'foo' => 'cow', 'baz' => 'bat', 'bar' => 'bar' ), $wrapper->raw() );
@@ -55,12 +55,12 @@ class Prb_HashTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_handle_get()
 	{
-		$wrapper = Prb::_Hash( array( 'foo' => 'bar', 'baz' => 'bat', 'cow' => 'cud' ) );
+		$wrapper = Prb::Hsh( array( 'foo' => 'bar', 'baz' => 'bat', 'cow' => 'cud' ) );
 		$this->assertEquals( 'bar', $wrapper->get( 'foo' ) );
 		$this->assertEquals( 'bat', $wrapper->get( 'baz' ) );
 		$this->assertEquals( 'cud', $wrapper->get( 'cow' ) );
 		
-		$wrapper->setDefault( Prb::_String( 'default value' ) );
+		$wrapper->setDefault( Prb::Str( 'default value' ) );
 		$this->assertEquals( $wrapper->getDefault(), $wrapper->get( 'Macguyver' ) );
 	} // It should handle get
 	
@@ -71,7 +71,7 @@ class Prb_HashTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_know_if_it_s_empty()
 	{
-		$wrapper = Prb::_Hash( array() );
+		$wrapper = Prb::Hsh( array() );
 		$this->assertTrue( $wrapper->isEmpty() );
 		
 		$wrapper->set( 'foo', 'bar' );
@@ -87,10 +87,10 @@ class Prb_HashTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_handle_slice()
 	{
-		$wrapper = Prb::_Hash( array( 'foo' => 'bar', 'baz' => 'bat', 'blarn' => 'bjork' ) );
+		$wrapper = Prb::Hsh( array( 'foo' => 'bar', 'baz' => 'bat', 'blarn' => 'bjork' ) );
 		
-		$this->assertEquals( Prb::_Array( array( 'bar', 'bat' ) ), $wrapper->slice( 'foo', 'baz' ) );
-		$this->assertEquals( Prb::_Array( array( 'bar', null ) ), $wrapper->slice( 'foo', 'wilhelm' ) );
+		$this->assertEquals( Prb::Ary( array( 'bar', 'bat' ) ), $wrapper->slice( 'foo', 'baz' ) );
+		$this->assertEquals( Prb::Ary( array( 'bar', null ) ), $wrapper->slice( 'foo', 'wilhelm' ) );
 	} // It should handle slice
 	
 	/**
@@ -100,14 +100,14 @@ class Prb_HashTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_handle_inject()
 	{
-		$wrapper = Prb::_Hash( array( 'foo' => 'bar', 'baz' => 'bat', 'blarn' => 'bjork' ) );
+		$wrapper = Prb::Hsh( array( 'foo' => 'bar', 'baz' => 'bat', 'blarn' => 'bjork' ) );
 		
 		$callback = create_function( '$accumulator,$key,$value', 'return $accumulator.$value;' );
 		$this->assertEquals( 'hibarbatbjork', $wrapper->inject( 'hi', $callback ) );
 		
-		$wrapper = Prb::_Hash( array(
-		  'foo' => Prb::_Array( array( 'cow', 'cud' ) ),
-		  'baz' => Prb::_Array( array( 'lol', 'wut' ) )
+		$wrapper = Prb::Hsh( array(
+		  'foo' => Prb::Ary( array( 'cow', 'cud' ) ),
+		  'baz' => Prb::Ary( array( 'lol', 'wut' ) )
 		) );
 		$callback = create_function( '$accumulator,$left,$right', 'return $accumulator.$left.$right;' );
 		$this->assertEquals( 'hicowcudlolwut', $wrapper->inject( 'hi', $callback ) );

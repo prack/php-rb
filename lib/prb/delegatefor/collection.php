@@ -58,7 +58,7 @@ class Prb_DelegateFor_Collection
 	{
 		$args    = func_get_args();
 		$wrapper = array_shift( $args );
-		$wrapped = Prb::_Array();
+		$wrapped = Prb::Ary();
 		
 		foreach ( $args as $key )
 			$wrapped->push( $wrapper->get( $key ) );
@@ -71,9 +71,9 @@ class Prb_DelegateFor_Collection
 	{
 		$keys = array_keys( $wrapper->raw() );
 		
-		$wrapped = Prb::_Array();
+		$wrapped = Prb::Ary();
 		foreach ( $keys as $key )
-			$wrapped->push( Prb::_String( $key ) );
+			$wrapped->push( Prb::Str( $key ) );
 		
 		return $wrapped;
 	}

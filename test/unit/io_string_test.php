@@ -12,7 +12,7 @@ class Prb_IO_StringTest extends PHPUnit_Framework_TestCase
 	 */
 	function setUp()
 	{
-		$this->string_io = Prb_IO::withString( Prb::_String( 'hello world' ) );
+		$this->string_io = Prb_IO::withString( Prb::Str( 'hello world' ) );
 	}
 	
 	/**
@@ -39,7 +39,7 @@ class Prb_IO_StringTest extends PHPUnit_Framework_TestCase
 		ob_start();
 			for ( $i = 0; $i < $iterations; $i++ )
 				echo $gibberish->raw();
-		$bigass_string = Prb::_String( ob_get_contents() );
+		$bigass_string = Prb::Str( ob_get_contents() );
 		
 		ob_end_clean();
 		

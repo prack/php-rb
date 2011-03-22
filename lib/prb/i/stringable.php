@@ -1,7 +1,7 @@
 <?php
 
 // TODO: Document!
-interface Prb_Interface_Stringable
+interface Prb_I_Stringable
 {
 	function raw();
 }

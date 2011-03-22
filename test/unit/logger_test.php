@@ -71,7 +71,7 @@ class Prack_Utils_LoggerTest extends PHPUnit_Framework_TestCase
 		$io     = Prb_IO::withString();
 		$logger = Prb_Logger::with( $io );
 		
-		$logger->warn( Prb::_String( 'error lol' ) );
+		$logger->warn( Prb::Str( 'error lol' ) );
 		$io->rewind();
 		$this->assertTrue( $io->read()->match( '/error lol/' ) );
 	} // It should log messages of appropriate severity
@@ -86,7 +86,7 @@ class Prack_Utils_LoggerTest extends PHPUnit_Framework_TestCase
 		$io     = Prb_IO::withString();
 		$logger = Prb_Logger::with( $io );
 		$logger->setLevel( Prb_Logger::UNKNOWN + 1 );
-		$error  = Prb::_String( 'error lol' );
+		$error  = Prb::Str( 'error lol' );
 		
 		$logger->debug( $error );
 		$io->rewind();
@@ -123,7 +123,7 @@ class Prack_Utils_LoggerTest extends PHPUnit_Framework_TestCase
 		$io     = Prb_IO::withString();
 		$logger = Prb_Logger::with( $io );
 		
-		$logger->log( Prb_Logger::WARN, Prb::_String( 'error lol' ) );
+		$logger->log( Prb_Logger::WARN, Prb::Str( 'error lol' ) );
 		$io->rewind();
 		
 		$this->assertTrue( $io->read()->match( '/error lol/' ) );
@@ -139,7 +139,7 @@ class Prack_Utils_LoggerTest extends PHPUnit_Framework_TestCase
 		$io     = Prb_IO::withString();
 		$logger = Prb_Logger::with( $io );
 		
-		$logger->concat( Prb::_String( 'error lol' ) );
+		$logger->concat( Prb::Str( 'error lol' ) );
 		$io->rewind();
 		
 		$this->assertTrue( $io->read()->match( '/error lol/' ) );
@@ -153,13 +153,13 @@ class Prack_Utils_LoggerTest extends PHPUnit_Framework_TestCase
 	public function It_should_allow_direct_setting_of_the_default_formatter_s_datetime_format()
 	{
 		$io     = Prb_IO::withString();
-		$dtf    = Prb::_String( '%H' );
+		$dtf    = Prb::Str( '%H' );
 		$logger = Prb_Logger::with( $io );
 		
 		$logger->setDatetimeFormat( $dtf );
 		$this->assertSame( $logger->getDatetimeFormat(), $dtf );
 		
-		$logger->info( Prb::_String( 'hello' ) );
+		$logger->info( Prb::Str( 'hello' ) );
 		$io->rewind();
 		$this->assertTrue( $io->read()->match( '/\[\d\d#\d{1,5}\].*hello/' ) );
 	} // It should allow direct setting of the default formatter's datetime format
@@ -174,11 +174,11 @@ class Prack_Utils_LoggerTest extends PHPUnit_Framework_TestCase
 		$mock_formatter = $this->getMock( 'Formatter', array( 'call' ) );
 		$mock_formatter->expects( $this->once() )
 		               ->method( 'call' )
-		               ->will( $this->returnValue( Prb::_String() ) );
+		               ->will( $this->returnValue( Prb::Str() ) );
 		
 		$logger = Prb_Logger::with( Prb_IO::withString() );
 		$logger->setFormatter( $mock_formatter );
-		$logger->log( Prb_Logger::INFO, Prb::_String( 'hello world' ) );
+		$logger->log( Prb_Logger::INFO, Prb::Str( 'hello world' ) );
 		$this->assertSame( $mock_formatter, $logger->getFormatter() );
 	} // It should allow setting of the formatter to use for logging
 }

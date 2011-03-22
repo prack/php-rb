@@ -1,7 +1,7 @@
 <?php
 
 // TODO: Document!
-interface Prb_Interface_LengthAware
+interface Prb_I_LengthAware
 {
 	public function length();
 }

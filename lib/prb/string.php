@@ -2,7 +2,7 @@
 
 // TODO: Document!
 class Prb_String
-  implements Prb_Interface_Stringable, Prb_Interface_Comparable
+  implements Prb_I_Stringable, Prb_I_Comparable
 {
 	const DELEGATE = 'Prb_DelegateFor_Collection';
 	
@@ -11,7 +11,7 @@ class Prb_String
 	// TODO: Document!
 	static function md5( $string )
 	{
-		return Prb::_String( md5( $string->raw() ) );
+		return Prb::Str( md5( $string->raw() ) );
 	}
 	
 	// TODO: Document!
@@ -36,13 +36,13 @@ class Prb_String
 		// TODO: Document!
 	public function base64Encode()
 	{
-		return Prb::_String( base64_encode( $this->string ) );
+		return Prb::Str( base64_encode( $this->string ) );
 	}
 	
 	// TODO: Document!
 	public function base64Decode()
 	{
-		return Prb::_String( base64_decode( $this->string ) );
+		return Prb::Str( base64_decode( $this->string ) );
 	}
 	
 	// TODO: Document!
@@ -114,14 +114,14 @@ class Prb_String
 			}
 		}
 		
-		return Prb::_String( $result );
+		return Prb::Str( $result );
 	}
 	
 	// TODO: Document!
 	public function chomp( $separator = null )
 	{
 		$separator = is_null( $separator ) ? null : $separator->raw();
-		return Prb::_String( rtrim( $this->string, $separator ) );
+		return Prb::Str( rtrim( $this->string, $separator ) );
 	}
 	
 	// TODO: Document!
@@ -133,22 +133,22 @@ class Prb_String
 		if ( count( $args ) == 1 )
 		{
 			$as_array = str_split( $this->string );
-			$wrapped  = Prb::_Array();
+			$wrapped  = Prb::Ary();
 			
 			foreach( $as_array as $item )
-				$wrapped->push( Prb::_String( $item ) );
+				$wrapped->push( Prb::Str( $item ) );
 			
 			return $wrapped->slice( $args[ 0 ] );
 		}
 		else if ( count( $args ) == 2 )
 		{
 			$as_array = str_split( $this->string );
-			$wrapped  = Prb::_Array();
+			$wrapped  = Prb::Ary();
 			
 			foreach( $as_array as $item )
-				$wrapped->push( Prb::_String( $item ) );
+				$wrapped->push( Prb::Str( $item ) );
 				
-			return $wrapped->slice( $args[ 0 ], $args[ 1 ] )->join( Prb::_String() );
+			return $wrapped->slice( $args[ 0 ], $args[ 1 ] )->join( Prb::Str() );
 		}
 		
 		return $sliced;
@@ -163,16 +163,16 @@ class Prb_String
 		if ( $t_length < $f_length )
 			$to = $to->rjust( $f_length, $to->slice( -1 ) );
 		
-		return Prb::_String( strtr( $this->string, $from->raw(), $to->raw() ) );
+		return Prb::Str( strtr( $this->string, $from->raw(), $to->raw() ) );
 	}
 	
 	// TODO: Document!
 	public function rjust( $integer, $pad_str = null )
 	{
 		if ( is_null( $pad_str ) )
-			$pad_str = Prb::_String( ' ' );
+			$pad_str = Prb::Str( ' ' );
 		
-		return Prb::_String( str_pad( $this->string, $integer, $pad_str->raw() ) );
+		return Prb::Str( str_pad( $this->string, $integer, $pad_str->raw() ) );
 	}
 	
 	// TODO: Document!
@@ -208,9 +208,9 @@ class Prb_String
 		$this->match( $pattern, $matches );
 		
 		if ( empty( $matches ) )
-			return Prb::_Array();
+			return Prb::Ary();
 		
-		$as_array = Prb::_Array();
+		$as_array = Prb::Ary();
 		
 		array_shift( $matches );
 		foreach ( $matches as $match )
@@ -218,7 +218,7 @@ class Prb_String
 			if ( is_array( $match ) )
 			{
 				foreach ( $match as $group_member )
-					$as_array->push( Prb::_Array( array( Prb::_String( $group_member ) ) ) );
+					$as_array->push( Prb::Ary( array( Prb::Str( $group_member ) ) ) );
 			}
 		}
 		
@@ -239,9 +239,9 @@ class Prb_String
 			$pattern = '';
 		
 		$primitives = preg_split( $pattern, $this->string, $limit );
-		$result     = Prb::_Array();
+		$result     = Prb::Ary();
 		foreach ( $primitives as $primitive )
-			$result->concat( Prb::_String( $primitive ) );
+			$result->concat( Prb::Str( $primitive ) );
 		
 		return $result;
 	}
@@ -250,7 +250,7 @@ class Prb_String
 	public function sprintf()
 	{
 		$args = func_get_args();
-		$args = Prb::_Array( $args );
+		$args = Prb::Ary( $args );
 		
 		static $callback = null;
 		if ( is_null( $callback ) )
@@ -261,7 +261,7 @@ class Prb_String
 		
 		$result = @call_user_func_array( 'sprintf', $args );
 		
-		return is_string( $result ) ? Prb::_String( $result ) : null;
+		return is_string( $result ) ? Prb::Str( $result ) : null;
 	}
 	
 	// TODO: Document!
@@ -301,19 +301,19 @@ class Prb_String
 	// TODO: Document!
 	public function upcase()
 	{
-		return Prb::_String( strtoupper( $this->string ) );
+		return Prb::Str( strtoupper( $this->string ) );
 	}
 	
 	// TODO: Document!
 	public function downcase()
 	{
-		return Prb::_String( strtolower( $this->string ) );
+		return Prb::Str( strtolower( $this->string ) );
 	}
 	
 	// TODO: Document!
 	public function compare( $other_str )
 	{
-		if ( !( $other_str instanceof Prb_Interface_Comparable ) && !( method_exists( $other_str, 'toS' ) ) )
+		if ( !( $other_str instanceof Prb_I_Comparable ) && !( method_exists( $other_str, 'toS' ) ) )
 			return null;
 		
 		$other_str = $other_str->toS();
@@ -323,6 +323,6 @@ class Prb_String
 	// TODO: Document!
 	public function toN()
 	{
-		return Prb::_Numeric( (float)$this->string );
+		return Prb::Num( (float)$this->string );
 	}
 }

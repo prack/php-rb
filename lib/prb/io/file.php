@@ -1,7 +1,7 @@
 <?php
 
 class Prb_IO_File extends Prb_IO
-  implements Prb_Interface_ReadableStreamlike, Prb_Interface_WritableStreamlike
+  implements Prb_I_ReadableStreamlike, Prb_I_WritableStreamlike
 {
 	// Binary composite values which determine mode:
 	const READ       =   1;

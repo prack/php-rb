@@ -11,7 +11,7 @@ class Prb_Logger_Formatter
 		static $format = null;
 		
 		if ( is_null( $format ) )
-			$format = Prb::_String( "%s, [%s#%d] %5s -- %s: %s\n" );
+			$format = Prb::Str( "%s, [%s#%d] %5s -- %s: %s\n" );
 		
 		return $format;
 	}
@@ -28,7 +28,7 @@ class Prb_Logger_Formatter
 		return self::format()->sprintf(
 	    $severity->slice( 0, 0 ),
 	    $this->formatDatetime( $time ),
-	    Prb::_Numeric( getmypid() ),
+	    Prb::Num( getmypid() ),
 	    $severity,
 	    $progname,
 	    $this->msg2str( $message )
@@ -54,8 +54,8 @@ class Prb_Logger_Formatter
 	private function formatDatetime( $time )
 	{
 		if ( is_null( $this->getDatetimeFormat() ) )
-			return $time->strftime( Prb::_String( '%Y-%m-%dT%H:%M:%S.' ) )
-		              ->concat( Prb::_String( '%06d' )->sprintf( $time->getMicroseconds() ) );
+			return $time->strftime( Prb::Str( '%Y-%m-%dT%H:%M:%S.' ) )
+		              ->concat( Prb::Str( '%06d' )->sprintf( $time->getMicroseconds() ) );
 		else
 			return $time->strftime( $this->getDatetimeFormat() );
 	}
@@ -68,9 +68,9 @@ class Prb_Logger_Formatter
 		else if ( $message instanceof Exception )
 		{
 			$exception_class = get_class( $message );
-			return Prb::_String( "{$message->getMessage()} ($exception_class)" )
-			           ->concat( Prb::_String( $message->getTraceAsString() ) );
+			return Prb::Str( "{$message->getMessage()} ($exception_class)" )
+			           ->concat( Prb::Str( $message->getTraceAsString() ) );
 		}
-		return Prb::_String( print_r( $message, true ) );
+		return Prb::Str( print_r( $message, true ) );
 	}
 }
