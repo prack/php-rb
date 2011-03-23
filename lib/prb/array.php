@@ -322,7 +322,7 @@ class Prb_Array extends Prb_Abstract_Collection
 	// This function is an example of PHP's ad-hoc inferiority.
 	public function compare( $other_ary )
 	{
-		if ( !( $other_ary instanceof Prb_I_Comparable ) && !( method_exists( $other_ary, 'toA' ) ) )
+		if ( !( $other_ary instanceof Prb_Arraylike ) )
 			return null;
 		
 		$comparison = 0; // equal

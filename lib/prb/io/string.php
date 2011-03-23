@@ -12,8 +12,8 @@ class Prb_IO_String extends Prb_IO
 	function __construct( $string = null )
 	{
 		$string = is_null( $string ) ? Prb::Str() : $string;
-		if ( !( $string instanceof Prb_I_Stringable ) )
-			throw new Prb_Exception_Type( 'FAILSAFE: __construct $string is not a Prb_I_Stringable' );
+		if ( !( $string instanceof Prb_I_Stringlike ) )
+			throw new Prb_Exception_Type( 'FAILSAFE: __construct $string is not a Prb_I_Stringlike' );
 		
 		if ( $string->length() > self::MAX_STRING_LENGTH )
 			throw new Prb_Exception_Argument( 'FAILSAFE: __construct $string too big for string io' );

@@ -2,7 +2,7 @@
 
 // TODO: Document!
 class Prb_String
-  implements Prb_I_Stringable, Prb_I_Comparable, Prb_I_Stringlike
+  implements Prb_I_Comparable, Prb_I_Stringlike
 {
 	const DELEGATE = 'Prb_DelegateFor_Collection';
 	
@@ -313,7 +313,7 @@ class Prb_String
 	// TODO: Document!
 	public function compare( $other_str )
 	{
-		if ( !( $other_str instanceof Prb_I_Comparable ) && !( method_exists( $other_str, 'toS' ) ) )
+		if ( !( $other_str instanceof Prb_String ) )
 			return null;
 		
 		$other_str = $other_str->toS();
