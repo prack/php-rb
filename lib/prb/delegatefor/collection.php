@@ -95,4 +95,11 @@ class Prb_DelegateFor_Collection
 		
 		return null;
 	}
+	
+	// TODO: Document!
+	static function detectAny( $wrapper, $callback )
+	{
+		$detected = Prb_DelegateFor_Collection::detect( $wrapper, $callback );
+		return isset( $detected );
+	}
 }
