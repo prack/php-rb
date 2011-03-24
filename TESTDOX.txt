@@ -50,6 +50,33 @@ Prb_IO
  [x] It should be possible to call close immediately
  [x] It should be possible to call close multiple times
 
+Prb_Logger_Device
+ [x] It should throw an exception when created with a non writable streamlike
+ [x] It should notify the owner when the log cannot be written to
+ [x] It should write to the underlying io object
+ [x] It should close the underlying io object
+ [x] It should ignore exceptions on close
+
+Prb_Logger_Formatter
+ [x] It should format a log entry correctly by default
+ [x] It should handle custom datetime formats
+
+Prack_Utils_Logger
+ [x] It should know its level
+ [x] It should log messages of appropriate severity
+ [x] It should not log messages of inappropriate severity
+ [x] It should alias method add to log
+ [x] It should allow direct concatenation to the device
+ [x] It should allow direct setting of the default formatter s datetime format
+ [x] It should allow setting of the formatter to use for logging
+
+Prb_Numeric
+ [x] It should throw an exception if instantiated with a non numeric primitive
+ [x] It should provide access to its primitive
+ [x] It should convert to a Prb String
+ [x] It should evaluate its value as a boolean
+ [x] It should compare correctly at an object level
+
 Prb_Set
  [x] It should handle each
 
