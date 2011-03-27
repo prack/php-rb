@@ -12,7 +12,7 @@ class Prb_IO_StringTest extends PHPUnit_Framework_TestCase
 	 */
 	function setUp()
 	{
-		$this->string_io = Prb_IO::withString( Prb::Str( 'hello world' ) );
+		$this->string_io = Prb_IO::withString( 'hello world' );
 	}
 	
 	/**
@@ -34,12 +34,12 @@ class Prb_IO_StringTest extends PHPUnit_Framework_TestCase
 	{
 		$max_length = Prb_IO_String::MAX_STRING_LENGTH;
 		$gibberish  = Prb_TestHelper::gibberish( 4096 );
-		$iterations = floor( (float)$max_length / (float)( $gibberish->length() ) + 1 ); // Just a bit over the limit!
+		$iterations = floor( (float)$max_length / (float)( strlen( $gibberish ) ) + 1 ); // Just a bit over the limit!
 		
 		ob_start();
 			for ( $i = 0; $i < $iterations; $i++ )
-				echo $gibberish->raw();
-		$bigass_string = Prb::Str( ob_get_contents() );
+				echo $gibberish;
+		$bigass_string = ob_get_contents();
 		
 		ob_end_clean();
 		
@@ -55,6 +55,6 @@ class Prb_IO_StringTest extends PHPUnit_Framework_TestCase
 	public function It_should_be_creatable_without_a_string()
 	{
 		$this->string_io = Prb_IO::withString();
-		$this->assertEquals( '', $this->string_io->read()->raw() );
+		$this->assertEquals( '', $this->string_io->read() );
 	} // It should be creatable without a string
 }

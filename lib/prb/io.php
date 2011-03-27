@@ -54,19 +54,19 @@ class Prb_IO
 			$remaining = is_null( $length ) ? PHP_INT_MAX : $length;
 			$read_size = min( $remaining, self::CHUNK_SIZE );
 			
-			$buffer = is_null( $buffer ) ? Prb::Str() : $buffer;
-			if ( !( $buffer instanceof Prb_String ) )
+			$buffer = (string)$buffer;
+			if ( !is_string( $buffer ) )
 				throw new Prb_Exception_Lint( 'read $buffer not a string' );
 			
 			if ( feof( $this->stream ) )
-				return is_null( $length ) ? Prb::Str() : null;
+				return is_null( $length ) ? '' : null;
 			
 			// Chunked read, as fread() is limited to 8K of data per call.
 			while ( !feof( $this->stream ) && $remaining > 0 && $temp = fread( $this->stream, $read_size ) )
 			{
 				$remaining -= strlen( $temp );
 				$read_size  = min( $remaining, self::CHUNK_SIZE );
-				$buffer->concat( Prb::Str( $temp ) );
+				$buffer .= $temp;
 			}
 			
 			return $buffer;
@@ -85,10 +85,7 @@ class Prb_IO
 			$result = fgets( $this->stream );
 			
 			if ( is_string( $result ) )
-			{
-				$result = Prb::Str( $result );
 				$this->line_no += 1;
-			}
 			else if ( $result === false )
 				$result = null;
 			

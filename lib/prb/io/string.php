@@ -11,17 +11,17 @@ class Prb_IO_String extends Prb_IO
 	// TODO: Document!
 	function __construct( $string = null )
 	{
-		$string = is_null( $string ) ? Prb::Str() : $string;
-		if ( !( $string instanceof Prb_I_Stringlike ) )
-			throw new Prb_Exception_Type( 'FAILSAFE: __construct $string is not a Prb_I_Stringlike' );
+		$string = (string)$string;
+		if ( !is_string( $string ) )
+			throw new Prb_Exception_Type( 'FAILSAFE: __construct $string is not a string' );
 		
-		if ( $string->length() > self::MAX_STRING_LENGTH )
+		if ( strlen( $string ) > self::MAX_STRING_LENGTH )
 			throw new Prb_Exception_Argument( 'FAILSAFE: __construct $string too big for string io' );
 		
 		$this->string = $string;
 		$stream = fopen( 'php://memory', 'w+b' );
 		
-		fputs( $stream, $string->raw() );
+		fputs( $stream, $string );
 		rewind( $stream );
 		
 		parent::__construct( $stream, true );
@@ -31,13 +31,13 @@ class Prb_IO_String extends Prb_IO
 	public function read( $length = null, $buffer = null )
 	{
 		if ( is_null( $length ) )
-			$adjusted_length = isset( $buffer ) ? self::MAX_STRING_LENGTH - $buffer->length() : self::MAX_STRING_LENGTH;
+			$adjusted_length = isset( $buffer ) ? self::MAX_STRING_LENGTH - strlen( $buffer ) : self::MAX_STRING_LENGTH;
 		else
 			$adjusted_length = $length;
 		
 		$result = parent::read( $adjusted_length, $buffer );
 		
-		return ( is_null( $length ) && is_null( $result ) ) ? Prb::Str() : $result;
+		return ( is_null( $length ) && is_null( $result ) ) ? '' : $result;
 	}
 	
 	// TODO: Document!
@@ -51,13 +51,13 @@ class Prb_IO_String extends Prb_IO
 	// TODO: Document!
 	public function length()
 	{
-		return $this->string->length();
+		return strlen( $this->string );
 	}
 	
 	// TODO: Document!
 	public function string()
 	{
-		return clone $this->string;
+		return $this->string;
 	}
 	
 	// TODO: Document!
