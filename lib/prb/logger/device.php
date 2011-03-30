@@ -42,7 +42,7 @@ class Prb_Logger_Device
 		}
 		catch ( Exception $e )
 		{
-			$this->owner->warn( Prb::Str( "log writing failed. {$e->getMessage()}" ) );
+			$this->owner->warn( "log writing failed. {$e->getMessage()}" );
 		}
 	}
 	
@@ -63,10 +63,4 @@ class Prb_Logger_Device
 	{
 		return $this->io;
 	}
-	
-	// TODO: Document!
-	// public function getFilename()
-	// {
-	// 	return $this->filename;
-	// }
 }

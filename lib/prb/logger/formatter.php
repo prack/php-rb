@@ -11,7 +11,7 @@ class Prb_Logger_Formatter
 		static $format = null;
 		
 		if ( is_null( $format ) )
-			$format = Prb::Str( "%s, [%s#%d] %5s -- %s: %s\n" );
+			$format = "%s, [%s#%d] %5s -- %s: %s\n";
 		
 		return $format;
 	}
@@ -25,13 +25,13 @@ class Prb_Logger_Formatter
 	// TODO: Document!
 	public function call( $severity, $time, $progname, $message )
 	{
-		return self::format()->sprintf(
-	    $severity->slice( 0, 0 ),
-	    $this->formatDatetime( $time ),
-	    Prb::Num( getmypid() ),
-	    $severity,
-	    $progname,
-	    $this->msg2str( $message )
+		return sprintf( self::format(),
+		  substr( $severity, 0, 1 ),
+		  $this->formatDatetime( $time ),
+		  getmypid(),
+		  $severity,
+		  $progname,
+		  $this->msg2str( $message )
 		);
 	}
 	
@@ -44,8 +44,8 @@ class Prb_Logger_Formatter
 	// TODO: Document!
 	public function setDatetimeFormat( $datetime_format )
 	{
-		if ( !( $datetime_format instanceof Prb_String ) )
-			throw new Prb_Exception_Type( 'setDatetimeFormat $datetime_format must be instance of Prb_String' );
+		if ( !is_string( $datetime_format ) )
+			throw new Prb_Exception_Type( 'setDatetimeFormat $datetime_format must be a string' );
 		
 		$this->datetime_format = $datetime_format;
 	}
@@ -54,8 +54,7 @@ class Prb_Logger_Formatter
 	private function formatDatetime( $time )
 	{
 		if ( is_null( $this->getDatetimeFormat() ) )
-			return $time->strftime( Prb::Str( '%Y-%m-%dT%H:%M:%S.' ) )
-		              ->concat( Prb::Str( '%06d' )->sprintf( $time->getMicroseconds() ) );
+			return $time->strftime( '%Y-%m-%dT%H:%M:%S.' ).sprintf( '%06d', $time->getMicroseconds() );
 		else
 			return $time->strftime( $this->getDatetimeFormat() );
 	}
@@ -63,14 +62,13 @@ class Prb_Logger_Formatter
 	// TODO: Document!
 	private function msg2str( $message )
 	{
-		if ( $message instanceof Prb_String )
+		if ( is_string( $message ) )
 			return $message;
 		else if ( $message instanceof Exception )
 		{
 			$exception_class = get_class( $message );
-			return Prb::Str( "{$message->getMessage()} ($exception_class)" )
-			           ->concat( Prb::Str( $message->getTraceAsString() ) );
+			return "{$message->getMessage()} ($exception_class)".$message->getTraceAsString();
 		}
-		return Prb::Str( print_r( $message, true ) );
+		return print_r( $message, true );
 	}
 }

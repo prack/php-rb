@@ -71,9 +71,9 @@ class Prack_Utils_LoggerTest extends PHPUnit_Framework_TestCase
 		$io     = Prb_IO::withString();
 		$logger = Prb_Logger::with( $io );
 		
-		$logger->warn( Prb::Str( 'error lol' ) );
+		$logger->warn( 'error lol' );
 		$io->rewind();
-		$this->assertTrue( $io->read()->match( '/error lol/' ) );
+		$this->assertRegExp( '/error lol/', $io->read() );
 	} // It should log messages of appropriate severity
 	
 	/**
@@ -86,31 +86,31 @@ class Prack_Utils_LoggerTest extends PHPUnit_Framework_TestCase
 		$io     = Prb_IO::withString();
 		$logger = Prb_Logger::with( $io );
 		$logger->setLevel( Prb_Logger::UNKNOWN + 1 );
-		$error  = Prb::Str( 'error lol' );
+		$error  = 'error lol';
 		
 		$logger->debug( $error );
 		$io->rewind();
-		$this->assertFalse( $io->read()->match( '/error lol/' ) );
+		$this->assertNotRegExp( '/error lol/', $io->read() );
 		
 		$logger->info( $error );
 		$io->rewind();
-		$this->assertFalse( $io->read()->match( '/error lol/' ) );
+		$this->assertNotRegExp( '/error lol/', $io->read() );
 		
 		$logger->warn( $error );
 		$io->rewind();
-		$this->assertFalse( $io->read()->match( '/error lol/' ) );
+		$this->assertNotRegExp( '/error lol/', $io->read() );
 		
 		$logger->error( $error );
 		$io->rewind();
-		$this->assertFalse( $io->read()->match( '/error lol/' ) );
+		$this->assertNotRegExp( '/error lol/', $io->read() );
 		
 		$logger->fatal( $error );
 		$io->rewind();
-		$this->assertFalse( $io->read()->match( '/error lol/' ) );
+		$this->assertNotRegExp( '/error lol/', $io->read() );
 		
 		$logger->unknown( $error );
 		$io->rewind();
-		$this->assertFalse( $io->read()->match( '/error lol/' ) );
+		$this->assertNotRegExp( '/error lol/', $io->read() );
 	} // It should not log messages of inappropriate severity
 	
 	/**
@@ -123,10 +123,10 @@ class Prack_Utils_LoggerTest extends PHPUnit_Framework_TestCase
 		$io     = Prb_IO::withString();
 		$logger = Prb_Logger::with( $io );
 		
-		$logger->log( Prb_Logger::WARN, Prb::Str( 'error lol' ) );
+		$logger->log( Prb_Logger::WARN, 'error lol' );
 		$io->rewind();
 		
-		$this->assertTrue( $io->read()->match( '/error lol/' ) );
+		$this->assertRegExp( '/error lol/', $io->read() );
 	} // It should alias method add to log
 	
 	/**
@@ -139,10 +139,10 @@ class Prack_Utils_LoggerTest extends PHPUnit_Framework_TestCase
 		$io     = Prb_IO::withString();
 		$logger = Prb_Logger::with( $io );
 		
-		$logger->concat( Prb::Str( 'error lol' ) );
+		$logger->concat( 'error lol' );
 		$io->rewind();
 		
-		$this->assertTrue( $io->read()->match( '/error lol/' ) );
+		$this->assertRegExp( '/error lol/', $io->read() );
 	} // It should allow direct concatenation to the device
 	
 	/**
@@ -153,15 +153,15 @@ class Prack_Utils_LoggerTest extends PHPUnit_Framework_TestCase
 	public function It_should_allow_direct_setting_of_the_default_formatter_s_datetime_format()
 	{
 		$io     = Prb_IO::withString();
-		$dtf    = Prb::Str( '%H' );
+		$dtf    = '%H';
 		$logger = Prb_Logger::with( $io );
 		
 		$logger->setDatetimeFormat( $dtf );
 		$this->assertSame( $logger->getDatetimeFormat(), $dtf );
 		
-		$logger->info( Prb::Str( 'hello' ) );
+		$logger->info( 'hello' );
 		$io->rewind();
-		$this->assertTrue( $io->read()->match( '/\[\d\d#\d{1,5}\].*hello/' ) );
+		$this->assertRegExp( '/\[\d\d#\d{1,5}\].*hello/', $io->read() );
 	} // It should allow direct setting of the default formatter's datetime format
 	
 	/**
@@ -174,11 +174,11 @@ class Prack_Utils_LoggerTest extends PHPUnit_Framework_TestCase
 		$mock_formatter = $this->getMock( 'Formatter', array( 'call' ) );
 		$mock_formatter->expects( $this->once() )
 		               ->method( 'call' )
-		               ->will( $this->returnValue( Prb::Str() ) );
+		               ->will( $this->returnValue( 'io' ) );
 		
 		$logger = Prb_Logger::with( Prb_IO::withString() );
 		$logger->setFormatter( $mock_formatter );
-		$logger->log( Prb_Logger::INFO, Prb::Str( 'hello world' ) );
+		$logger->log( Prb_Logger::INFO, 'hello world' );
 		$this->assertSame( $mock_formatter, $logger->getFormatter() );
 	} // It should allow setting of the formatter to use for logging
 }

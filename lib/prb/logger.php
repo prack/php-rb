@@ -24,17 +24,17 @@ class Prb_Logger
 		
 		if ( is_null( $labels ) )
 		{
-			$labels = Prb::Ary( array(
-				self::DEBUG   => Prb::Str( 'DEBUG' ),
-				self::INFO    => Prb::Str( 'INFO'  ),
-				self::WARN    => Prb::Str( 'WARN'  ),
-				self::ERROR   => Prb::Str( 'ERROR' ),
-				self::FATAL   => Prb::Str( 'FATAL' ),
-				self::UNKNOWN => Prb::Str( 'ANY'   )
-			) );
+			$labels = array(
+				self::DEBUG   => 'DEBUG',
+				self::INFO    => 'INFO',
+				self::WARN    => 'WARN',
+				self::ERROR   => 'ERROR',
+				self::FATAL   => 'FATAL',
+				self::UNKNOWN => 'ANY'
+			);
 		}
 		
-		return $labels->get( $severity );
+		return @$labels[ $severity ];
 	}
 	
 	// TODO: Document!
@@ -151,13 +151,12 @@ class Prb_Logger
 		$this->default_formatter->setDatetimeFormat( $datetime_format );
 	}
 	
+	// TODO: Document!
 	# Logging formatter.  formatter#call is invoked with 4 arguments; severity,
 	# time, progname and msg for each log.  Bear in mind that time is a Time and
 	# msg is an Object that user passed and it could not be a String.  It is
 	# expected to return a logdev#write-able Object.  Default formatter is used
 	# when no formatter is set.
-
-	// TODO: Document!
 	public function getFormatter()
 	{
 		return $this->formatter;
@@ -180,6 +179,6 @@ class Prb_Logger
 	private function formatSeverity( $severity )
 	{
 		$sl = self::severityLabel( $severity );
-		return is_null( $sl ) ? Prb::Str( 'ANY' ) : $sl;
+		return is_null( $sl ) ? 'ANY' : $sl;
 	}
 }

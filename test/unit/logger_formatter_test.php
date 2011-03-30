@@ -12,13 +12,14 @@ class Prb_Logger_FormatterTest extends PHPUnit_Framework_TestCase
 	{
 		$formatter = new Prb_Logger_Formatter();
 		
-		$this->assertTrue(
+		$this->assertRegExp(
+			"/W, \[\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{6}#\d+\]  WARN -- someprogram/",
 		  $formatter->call(
 		    Prb_Logger::severityLabel( Prb_Logger::WARN ),
 		    Prb::Time(),
-		    Prb::Str( 'someprogram' ),
+		    'someprogram',
 		    array( 'primitive' )
-		  )->match( "/W, \[\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{6}#\d+\]  WARN -- someprogram/" )
+		  )
 		);
 	} // It should format a log entry correctly by default
 	
@@ -30,15 +31,16 @@ class Prb_Logger_FormatterTest extends PHPUnit_Framework_TestCase
 	public function It_should_handle_custom_datetime_formats()
 	{
 		$formatter = new Prb_Logger_Formatter();
-		$formatter->setDatetimeFormat( Prb::Str( '%Y-%m-%d %H:%M:%S' ) );
+		$formatter->setDatetimeFormat( '%Y-%m-%d %H:%M:%S' );
 		
-		$this->assertTrue(
+		$this->assertRegExp(
+		  "/W, \[\d{4}-\d\d-\d\d\s\d\d:\d\d:\d\d#\d+\]  WARN -- someprogram.*derp exception/",
 		  $formatter->call(
 		    Prb_Logger::severityLabel( Prb_Logger::WARN ),
 		    Prb::Time(),
-		    Prb::Str( 'someprogram' ),
+		    'someprogram',
 		    new Exception( 'derp exception' )
-		  )->match( "/W, \[\d{4}-\d\d-\d\d\s\d\d:\d\d:\d\d#\d+\]  WARN -- someprogram.*derp exception/" )
+		  )
 		);
 	} // It should handle custom datetime formats
 }
