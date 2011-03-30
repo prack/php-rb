@@ -30,7 +30,7 @@ class Prb_IOTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_be_able_to_handle_read()
 	{
-		$this->assertEquals( 'hello world', $this->io->read()->raw() );
+		$this->assertEquals( 'hello world', $this->io->read() );
 		
 		$this->io->close();
 		try
@@ -52,7 +52,7 @@ class Prb_IOTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_be_able_to_handle_read_with_null()
 	{
-		$this->assertEquals( 'hello world', $this->io->read( null )->raw() );
+		$this->assertEquals( 'hello world', $this->io->read( null ) );
 	} // It should be able to handle read( null )
 	
 	/**
@@ -62,7 +62,7 @@ class Prb_IOTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_be_able_to_handle_read_with_length()
 	{
-		$this->assertEquals( 'h', $this->io->read( 1 )->raw() );
+		$this->assertEquals( 'h', $this->io->read( 1 ) );
 	} // It should be able to handle read( length )
 	
 	/**
@@ -72,9 +72,9 @@ class Prb_IOTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_be_able_to_handle_read_with_length_and_buffer()
 	{
-		$buffer = Prb::Str();
+		$buffer = '';
 		$result = $this->io->read( 1, $buffer );
-		$this->assertEquals( 'h', $result->raw() );
+		$this->assertEquals( 'h', $result );
 		$this->assertSame( $buffer, $result );
 	} // It should be able to handle read( length, buffer )
 	
@@ -85,9 +85,9 @@ class Prb_IOTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_be_able_to_handle_read_with_null_and_buffer()
 	{
-		$buffer = Prb::Str();
+		$buffer = '';
 		$result = $this->io->read( null, $buffer );
-		$this->assertEquals( 'hello world', $result->raw() );
+		$this->assertEquals( 'hello world', $result );
 		$this->assertSame( $buffer, $result );
 	} // It should be able to handle read( null, buffer )
 	
@@ -100,7 +100,7 @@ class Prb_IOTest extends PHPUnit_Framework_TestCase
 	{
 		$this->io->read( 1 );
 		$this->io->rewind();
-		$this->assertEquals( 'hello world', $this->io->read()->raw() );
+		$this->assertEquals( 'hello world', $this->io->read() );
 	} // It should rewind to the beginning when rewind is called
 	
 	/**
@@ -110,7 +110,7 @@ class Prb_IOTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_be_able_to_handle_gets()
 	{
-		$this->assertEquals( 'hello world', $this->io->gets()->raw() );
+		$this->assertEquals( 'hello world', $this->io->gets() );
 		
 		$this->io->close();
 		try
@@ -134,10 +134,11 @@ class Prb_IOTest extends PHPUnit_Framework_TestCase
 	{
 		$callback = array( $this, 'addToItems' );
 		
-		$this->items = Prb::Ary();
+		$this->items = array();
 		
 		$this->io->each( $callback );
-		$this->assertEquals( array( Prb::Str( 'hello world' ) ), $this->items->raw() );
+		
+		$this->assertEquals( array( 'hello world' ), $this->items );
 		$this->assertEquals( count( $this->items ), $this->io->getLineNo() );
 		
 		$this->io->close();
@@ -158,7 +159,7 @@ class Prb_IOTest extends PHPUnit_Framework_TestCase
 	 */
 	public function addToItems( $item )
 	{
-		$this->items->concat( $item );
+		array_push( $this->items, $item );
 	}
 	
 	/**
@@ -192,15 +193,15 @@ class Prb_IOTest extends PHPUnit_Framework_TestCase
 	 */
 	public function It_should_handle_write()
 	{
-		$this->io->write( Prb::Str( 'EASTER EGG FOR JASON' ) );
+		$this->io->write( 'EASTER EGG FOR JASON' );
 		$this->io->rewind();
 		
-		$this->assertEquals( 'EASTER EGG FOR JASON', $this->io->read()->raw() );
+		$this->assertEquals( 'EASTER EGG FOR JASON', $this->io->read() );
 		
 		$this->io->close();
 		try
 		{
-			$this->io->write( Prb::Str( 'denied' ) );
+			$this->io->write( 'denied' );
 		} 
 		catch ( Prb_Exception_IO $e )
 		{

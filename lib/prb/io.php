@@ -47,7 +47,7 @@ class Prb_IO
 	}
 	
 	// TODO: Document!
-	public function read( $length = null, $buffer = null )
+	public function read( $length = null, &$buffer = null )
 	{
 		if ( $this->isReadable() )
 		{
@@ -105,7 +105,8 @@ class Prb_IO
 			if ( !is_callable( $callback ) )
 				throw new Prb_Exception_Callback();
 			
-			$this->readlines()->each( $callback );
+			$lines = $this->readlines();
+			array_walk( $lines, $callback );
 			
 			return;
 		}
@@ -116,10 +117,10 @@ class Prb_IO
 		// TODO: Document!
 	public function readlines()
 	{
-		$lines = Prb::Ary();
+		$lines = array();
 		
 		while ( $line = $this->gets() )
-			$lines->push( $line );
+			array_push( $lines, $line );
 		
 		return $lines;
 	}
@@ -127,7 +128,7 @@ class Prb_IO
 	public function write( $buffer )
 	{
 		if ( $this->isWritable() )
-			return fwrite( $this->stream, $buffer->raw() );
+			return fwrite( $this->stream, $buffer );
 		
 		throw new Prb_Exception_IO( 'stream is not writable' );
 	}
@@ -145,9 +146,12 @@ class Prb_IO
 		$args = func_get_args();
 		foreach ( $args as $printable )
 		{
-			if ( $printable instanceof Prb_Array )
+			if ( is_array( $printable ) )
 			{
-				$callback  = create_function( '$i', 'return $i->strip();' );
+				static $callback = null;
+				if ( is_null( $callback ) )
+					$callback  = create_function( '$i', 'return $i->strip();' );
+				
 				$printable = $printable->each( $callback )->join( $g_prack_f_sep );
 			}
 			

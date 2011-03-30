@@ -28,7 +28,7 @@ class Prb_IO_String extends Prb_IO
 	}
 	
 	// TODO: Document!
-	public function read( $length = null, $buffer = null )
+	public function read( $length = null, &$buffer = null )
 	{
 		if ( is_null( $length ) )
 			$adjusted_length = isset( $buffer ) ? self::MAX_STRING_LENGTH - strlen( $buffer ) : self::MAX_STRING_LENGTH;
