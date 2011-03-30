@@ -15,24 +15,23 @@ class Prb_Time extends Prb_Numeric
 		parent::__construct( $time );
 		
 		$abs = abs( $time );
-		$this->seconds      = Prb::Num( (int)$abs );
-		$this->microseconds = Prb::Num( (int)( ( $abs - floor( $abs ) ) * pow( 10, 6 ) ) );
+		$this->seconds      = (int)$abs;
+		$this->microseconds = (int)( ( $abs - floor( $abs ) ) * pow( 10, 6 ) );
 	}
 	
 	// TODO: Document!
 	public function strftime( $format )
 	{
-		if ( !( $format instanceof Prb_String ) )
+		if ( !is_string( $format ) )
 			throw new Prb_Exception_Argument( 'strftime $format must be instance of Prb_String' );
 		
-		$formatted = strftime( $format->raw(), (int)$this->numeric );
-		return is_string( $formatted ) ? Prb::Str( $formatted ) : Prb::Str();
+		return (string)strftime( $format, (int)$this->numeric );
 	}
 	
 	// TODO: Document!
 	public function httpdate()
 	{
-		return Prb::Str( http_date( (int)$this->numeric ) );
+		return http_date( (int)$this->numeric );
 	}
 	
 	// TODO: Document!
