@@ -254,8 +254,9 @@ class Prb_IO
 	}
 	
 	// TODO: Document!
-	protected function getStream()
+	public function &getStream()
 	{
-		return $this->stream;
+		$stream = &$this->stream;
+		return $stream;
 	}
 }
